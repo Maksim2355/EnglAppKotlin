@@ -22,7 +22,6 @@ class favoriteFragment : Fragment() {
         val inflaterView: View =
             inflater.inflate(R.layout.fragment_favorite, container, false)
 
-        // Inflate the layout for this fragment
         return inflaterView
     }
 
