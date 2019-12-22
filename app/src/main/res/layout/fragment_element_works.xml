@@ -11,14 +11,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="6"
         android:layout_margin="5dp"
+        android:layout_weight="8"
         android:orientation="horizontal">
 
         <ImageButton
             android:id="@+id/imageButton3"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:background="@null"
             android:src="@drawable/ic_record_voice_over_black_24dp"
@@ -29,8 +29,7 @@
         <Button
             android:id="@+id/button3"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="left"
+            android:layout_height="wrap_content"
             android:text="@string/butTranslate"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
