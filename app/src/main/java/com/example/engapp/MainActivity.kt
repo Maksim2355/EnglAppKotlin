@@ -1,8 +1,6 @@
 package com.example.engapp
 
 import android.os.Bundle
-import android.util.Log
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -31,7 +29,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.profile ->{
-                    navController.navigate(R.id.profileFragment2)
+                    navController.navigate(R.id.addProfileFragment)
                     true
                 }
                 else -> false

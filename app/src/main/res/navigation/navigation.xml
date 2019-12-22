@@ -4,20 +4,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
     app:startDestination="@id/favoriteFragment">
-
     <fragment
         android:id="@+id/favoriteFragment"
-        android:name="com.example.engapp.favoriteFragment"
+        android:name="com.example.engapp.FavoriteFragment"
         android:label="fragment_favorite"
-        tools:layout="@layout/fragment_favorite" />
+        tools:layout="@layout/fragment_favorite" >
+        <action
+            android:id="@+id/action_favoriteFragment_to_elementWorksFragment"
+            app:destination="@id/elementWorksFragment" />
+    </fragment>
     <fragment
         android:id="@+id/worksFragment"
-        android:name="com.example.engapp.worksFragment"
+        android:name="com.example.engapp.WorksFragment"
         android:label="fragment_works"
-        tools:layout="@layout/fragment_works" />
+        tools:layout="@layout/fragment_works" >
+        <action
+            android:id="@+id/action_worksFragment_to_elementWorksFragment"
+            app:destination="@id/elementWorksFragment" />
+    </fragment>
     <fragment
-        android:id="@+id/profileFragment2"
-        android:name="com.example.engapp.profileFragment"
+        android:id="@+id/profileFragment"
+        android:name="com.example.engapp.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/addProfileFragment"
+        android:name="com.example.engapp.profile.AddProfileFragment"
+        android:label="fragment_add_profile"
+        tools:layout="@layout/fragment_add_profile" />
+    <fragment
+        android:id="@+id/elementWorksFragment"
+        android:name="com.example.engapp.ElementWorksFragment"
+        android:label="fragment_element_works"
+        tools:layout="@layout/fragment_element_works" />
 </navigation>
