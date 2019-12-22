@@ -10,6 +10,7 @@
     <string name="regEnd">Register profile</string>
     <string name="regEmail">Enter your email</string>
     <string name="butTranslate">Translate</string>
+    <string name="butAddContent">Add content</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
