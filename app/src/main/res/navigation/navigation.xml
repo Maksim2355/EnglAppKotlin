@@ -26,7 +26,14 @@
         android:id="@+id/profileFragment"
         android:name="com.example.engapp.profile.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_addProfileFragment"
+            app:destination="@id/addProfileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_userFragment"
+            app:destination="@id/userFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addProfileFragment"
         android:name="com.example.engapp.profile.AddProfileFragment"
@@ -37,4 +44,9 @@
         android:name="com.example.engapp.ElementWorksFragment"
         android:label="fragment_element_works"
         tools:layout="@layout/fragment_element_works" />
+    <fragment
+        android:id="@+id/userFragment"
+        android:name="com.example.engapp.UserFragment"
+        android:label="fragment_user"
+        tools:layout="@layout/fragment_user" />
 </navigation>

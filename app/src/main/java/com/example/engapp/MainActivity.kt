@@ -25,11 +25,11 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.works -> {
-                    navController.navigate(R.id.worksFragment)
+                    navController.navigate(R.id.elementWorksFragment)
                     true
                 }
                 R.id.profile ->{
-                    navController.navigate(R.id.addProfileFragment)
+                    navController.navigate(R.id.profileFragment)
                     true
                 }
                 else -> false

@@ -1,14 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".profile.ProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/loginIn"
+        android:layout_width="wrap_content"
+        android:layout_height="39dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/edittextstyle"
+        android:ems="10"
+        android:hint="@string/loginPlease"
+        android:importantForAutofill="no"
+        android:inputType="textPersonName"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.19999999"
+        android:paddingLeft="@dimen/padding_hint"/>
+
+    <EditText
+        android:id="@+id/passwordIn"
+        android:layout_width="215dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/edittextstyle"
+        android:ems="10"
+        android:hint="@string/passwordPlease"
+        android:importantForAutofill="no"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="@+id/loginIn"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/loginIn"
+        app:layout_constraintTop_toTopOf="@+id/loginIn"
+        android:paddingLeft="@dimen/padding_hint"
+        />
+
+    <Button
+        android:id="@+id/loginAc"
+        android:layout_width="218dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/loginIn"
+        app:layout_constraintEnd_toEndOf="@+id/passwordIn"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/passwordIn"
+        app:layout_constraintTop_toBottomOf="@+id/passwordIn"
+        />
+
+    <Button
+        android:id="@+id/passwordAc"
+        android:layout_width="218dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/registration"
+        app:layout_constraintEnd_toEndOf="@+id/loginAc"
+        app:layout_constraintStart_toStartOf="@+id/loginAc"
+        app:layout_constraintTop_toBottomOf="@+id/loginAc" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

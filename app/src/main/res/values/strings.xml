@@ -3,11 +3,13 @@
     <string name="title_favorite">Favorite</string>
     <string name="title_works">Works</string>
     <string name="title_profile">Profile</string>
-    <string name="loginUser">Your login</string>
     <string name="loginPlease">Enter your login</string>
     <string name="passwordPlease">Enter your password</string>
     <string name="loginIn">Login to account</string>
     <string name="registration">Account registration</string>
+    <string name="regEnd">Register profile</string>
+    <string name="regEmail">Enter your email</string>
+    <string name="butTranslate">Translate</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
