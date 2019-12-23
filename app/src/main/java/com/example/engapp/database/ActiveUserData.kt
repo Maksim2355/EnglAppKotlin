@@ -1,5 +1,6 @@
 package com.example.engapp.database
 
+import androidx.room.Entity
 import androidx.room.PrimaryKey
 /*
 1. Id элемента
@@ -7,6 +8,7 @@ import androidx.room.PrimaryKey
 3. Id профиля, в который выполнен вход
  */
 
+@Entity
 data class ActiveUserData(@PrimaryKey(autoGenerate = true)val id: String,
                           var SIGN_IN: Int, var idAccount: Int) {
 }
