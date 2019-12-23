@@ -12,5 +12,6 @@ import java.util.*
 
 @Entity
 data class DataAccount(@PrimaryKey(autoGenerate = true) val id: Int, val login: String,
-                       val email: String, var password: String, var idWorks: LinkedList<String>) {
+                       val email: String, var accountSum: String,
+                       var password: String, var idWorks: LinkedList<String>) {
 }
