@@ -28,7 +28,7 @@
 
     <EditText
         android:id="@+id/passwordIn"
-        android:layout_width="215dp"
+        android:layout_width="0dp"
         android:layout_height="39dp"
         android:layout_marginTop="60dp"
         android:background="@drawable/edittextstyle"
@@ -36,28 +36,26 @@
         android:hint="@string/passwordPlease"
         android:importantForAutofill="no"
         android:inputType="textPassword"
+        android:paddingLeft="@dimen/padding_hint"
         app:layout_constraintEnd_toEndOf="@+id/loginIn"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/loginIn"
-        app:layout_constraintTop_toTopOf="@+id/loginIn"
-        android:paddingLeft="@dimen/padding_hint"
-        />
+        app:layout_constraintTop_toTopOf="@+id/loginIn" />
 
     <Button
         android:id="@+id/loginAc"
-        android:layout_width="218dp"
+        android:layout_width="0dp"
         android:layout_height="45dp"
         android:layout_marginTop="40dp"
         android:text="@string/loginIn"
         app:layout_constraintEnd_toEndOf="@+id/passwordIn"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/passwordIn"
-        app:layout_constraintTop_toBottomOf="@+id/passwordIn"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/passwordIn" />
 
     <Button
         android:id="@+id/passwordAc"
-        android:layout_width="218dp"
+        android:layout_width="0dp"
         android:layout_height="45dp"
         android:layout_marginTop="16dp"
         android:text="@string/registration"

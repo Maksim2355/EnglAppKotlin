@@ -27,6 +27,7 @@ interface DataWorksDao {
     @Query("SELECT * FROM DataWorks WHERE FLAG_SECTION = :FLAG_SECTION")
     fun getFavoriteWorks(FLAG_SECTION: Int): List<DataWorks>?
 
+    //Получение элементов для заголовка
     @Query("SELECT id, title, contentDesc, rating, pathImage FROM DataWorks")
     fun getItem(): List<DataItemList?>?
 }
