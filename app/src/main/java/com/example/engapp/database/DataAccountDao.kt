@@ -17,6 +17,7 @@ interface DataAccountDao {
     @Query("SELECT * FROM DataAccount")
     fun getAllAccount(): List<DataAccount?>?
 
+    //Получение лишь некоторых данных элемента
     @Query("SELECT login, password, id FROM DataAccount")
     fun getLoginInfo(): List<AccountInData>?
 

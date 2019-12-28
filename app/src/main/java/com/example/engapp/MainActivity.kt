@@ -6,7 +6,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.room.Room
 import com.example.engapp.UI.User
+import com.example.engapp.database.AppDatabase
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
@@ -25,6 +27,11 @@ class MainActivity : AppCompatActivity() {
         val navController: NavController =
             Navigation.findNavController(this, R.id.nav_host_fragment)
 
+        val db = Room.databaseBuilder(
+            applicationContext,
+            AppDatabase::class.java, "database"
+        ).build()
+
         bottomNavigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.favorite -> {
@@ -32,7 +39,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.works -> {
-                    navController.navigate(R.id.elementWorksFragment)
+                    navController.navigate(R.id.worksFragment)
                     true
                 }
                 R.id.profile ->{
