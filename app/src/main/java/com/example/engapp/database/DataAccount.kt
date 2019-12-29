@@ -3,7 +3,6 @@ package com.example.engapp.database
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
-import com.example.engapp.database.conventors.ListInString
 import java.util.*
 /*
 1. Значение id
@@ -13,9 +12,10 @@ import java.util.*
  */
 
 @Entity
-data class DataAccount(@PrimaryKey(autoGenerate = true) val id: Int,
+data class DataAccount(
                        val login: String,
                        val email: String,
-                       var accountSum: String,
                        var password: String) {
+    @PrimaryKey(autoGenerate = true)
+    val id: Int? = null
 }
