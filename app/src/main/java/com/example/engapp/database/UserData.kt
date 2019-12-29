@@ -5,5 +5,8 @@ import androidx.room.PrimaryKey
 
 
 @Entity
-class UserData(@PrimaryKey val id: Int = 0, var userId: Int) {
+class UserData {
+    @PrimaryKey
+    val id: Int = 0
+    var userId: Int? = null
 }

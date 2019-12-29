@@ -38,8 +38,6 @@ class AddProfileFragment : Fragment(), View.OnClickListener {
             activity?.let { Navigation.findNavController(it, R.id.nav_host_fragment) }!!
         initView()
 
-
-
         return myFragment
     }
 
@@ -50,10 +48,9 @@ class AddProfileFragment : Fragment(), View.OnClickListener {
             db = App.instance!!.database!!
             val accountDao = db.accountDao()
             val account = DataAccount(loginInput.text.toString(), emailInput.text.toString(),
-                passwordInput.text.toString())
+                passwordInput.text.toString(),null)
             accountDao!!.insertAccount(account)
-            println(accountDao.getAllAccount().toString())
-
+            navController.popBackStack()
         }
 
     }

@@ -16,11 +16,17 @@ import androidx.room.PrimaryKey
     Значение 0- Элемент находится в разделе allWorks
     Значение 1- Элемент находится в разделе Favorite
     Значение 2- Элемент находится в разделе Profile
+    Значение 3- Элемент находится в разделе Profile и Favorite
+    Значение 4- Элемент находится в разделе Profile и allWorks
  */
 @Entity
-data class DataWorks(@PrimaryKey(autoGenerate = true) val id: Int, var title: String,
-                        var contentDesc: String, var contentRu: String,
-                        var contentEn: String, var rating: String,
-                        var pathImage: String, var pathAudio: String,
-                     var FLAG_SECTION: Int) {
+data class DataWorks(@PrimaryKey(autoGenerate = true) val id: Int,
+                        var title: String,
+                        var contentDesc: String,
+                        var contentRu: String,
+                        var contentEn: String,
+                        var rating: Int?,
+                        var pathImage: String?,
+                        var pathAudio: String?,
+                        var FLAG_SECTION: Int) {
 }
