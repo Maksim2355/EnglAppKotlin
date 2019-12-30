@@ -20,12 +20,16 @@ import com.example.engapp.database.DataAccount
  * A simple [Fragment] subclass.
  */
 class AddProfileFragment : Fragment(), View.OnClickListener {
+    //Поля ввода
     private lateinit var loginInput: EditText
     private lateinit var emailInput: EditText
     private lateinit var passwordInput: EditText
+    //Кнопка, которая добавляет аккаунт в базу данных
     private lateinit var regBut: Button
+    //Фрагмент и контроллер к нему
     private lateinit var myFragment: View
     private lateinit var navController: NavController
+    //Экземпляры базы данных
     private lateinit var db: AppDatabase
 
     override fun onCreateView(
@@ -42,14 +46,14 @@ class AddProfileFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        if (loginInput.text.toString()!= "" && emailInput.text.toString()!= ""
-            && passwordInput.text.toString()!= "")
+        if (emptyIn())
         {
             db = App.instance!!.database!!
             val accountDao = db.accountDao()
             val account = DataAccount(loginInput.text.toString(), emailInput.text.toString(),
-                passwordInput.text.toString(),null)
+                passwordInput.text.toString(), "Add Description",null)
             accountDao!!.insertAccount(account)
+
             navController.popBackStack()
         }
 
@@ -61,6 +65,12 @@ class AddProfileFragment : Fragment(), View.OnClickListener {
         passwordInput = myFragment.findViewById(R.id.passwordReg)
         regBut = myFragment.findViewById(R.id.regbutton)
         regBut.setOnClickListener(this)
+    }
+
+    private fun emptyIn(): Boolean{
+        return (loginInput.text.toString()!= "" && emailInput.text.toString()!= ""
+                && passwordInput.text.toString()!= "")
+
     }
 
 }

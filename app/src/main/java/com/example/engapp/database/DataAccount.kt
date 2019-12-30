@@ -18,6 +18,7 @@ data class DataAccount(
                        val login: String,
                        val email: String,
                        var password: String,
+                       var accountDesc: String,
                        @TypeConverters(ConvList::class)
                        var idWorks: MutableList<String?>?) {
     @PrimaryKey(autoGenerate = true)

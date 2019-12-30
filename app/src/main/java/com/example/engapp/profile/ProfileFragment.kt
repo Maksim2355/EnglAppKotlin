@@ -1,8 +1,6 @@
 package com.example.engapp.profile
 
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,15 +9,11 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.example.engapp.UI.User
 import com.example.engapp.App
 
-import com.example.engapp.database.AppDatabase
-
-import android.R
-import com.example.engapp.database.AccountInData
-import com.example.engapp.database.DataAccountDao
-import com.example.engapp.database.UserDataDao
+import android.widget.EditText
+import com.example.engapp.R
+import com.example.engapp.database.*
 
 
 /*
@@ -27,10 +21,16 @@ import com.example.engapp.database.UserDataDao
 вход в приложение и запомнить данные для входа в userPref
  */
 class ProfileFragment : Fragment(), View.OnClickListener{
+    //View фрагмента и контроллер
     private lateinit var  myFragment: View
     private lateinit var  navController: NavController
-    private lateinit var regButton: Button
-    private lateinit var loginIn: Button
+    //Кнопка регистрации и входа
+    private lateinit var regBut: Button
+    private lateinit var loginBut: Button
+    //Поля для ввода текста
+    private lateinit var login: EditText
+    private lateinit var password: EditText
+    //Экземпляры базы данных и интерфейсы для получения/Вставки данных
     private val db:AppDatabase? = App.instance!!.database!!
     private val userDao: UserDataDao = db!!.userDao()!!
     private val accountDao: DataAccountDao = db!!.accountDao()!!
@@ -41,7 +41,7 @@ class ProfileFragment : Fragment(), View.OnClickListener{
         savedInstanceState: Bundle?
     ): View? {
         myFragment =
-            inflater.inflate(com.example.engapp.R.layout.fragment_profile, container, false)
+            inflater.inflate(R.layout.fragment_profile, container, false)
         init()
         // Inflate the layout for this fragment
         return myFragment
@@ -49,27 +49,39 @@ class ProfileFragment : Fragment(), View.OnClickListener{
 
     override fun onClick(v: View?) {
         when(v!!.id){
-            com.example.engapp.R.id.regbutton-> navController.navigate(com.example.engapp.R.id.addProfileFragment)
+            R.id.regBut->
+                navController.navigate(R.id.addProfileFragment)
             //Необходимо реализовать авторизацию, изменение активного юзера
-            com.example.engapp.R.id.loginAc-> {
+            R.id.loginBut-> {
+                //Получаем информацию об аккаунтах
                 val listAccount: List<AccountInData> = accountDao.getLoginInfo()!!
-                
-
+                //Перебираем каждое значение, если оно подходит, то выполняем регистрацию
+                for(item in listAccount){
+                    if(login.text.toString() == item.login &&
+                            password.text.toString() == item.password){
+                        val user = UserData()
+                        user.userId = item.id
+                        userDao.update(user)
+                        navController.navigate(com.example.engapp.R.id.userFragment)
+                    }
+                }
+                login.text = null
+                password.text = null
             }
 
         }
     }
 
     private fun init(){
+        //Получаем контроллер для фрагмента
         navController =
             activity?.let { Navigation.findNavController(it, com.example.engapp.R.id.nav_host_fragment) }!!
-        regButton =
-            myFragment.findViewById<Button>(com.example.engapp.R.id.passwordAc)
-        loginIn =
-            myFragment.findViewById<Button>(com.example.engapp.R.id.loginAc)
-        regButton.setOnClickListener(this)
-
-        loginIn.setOnClickListener(this)
+        regBut =
+            myFragment.findViewById<Button>(R.id.regBut)
+        loginBut =
+            myFragment.findViewById<Button>(R.id.loginBut)
+        regBut.setOnClickListener(this)
+        loginBut.setOnClickListener(this)
     }
 
 

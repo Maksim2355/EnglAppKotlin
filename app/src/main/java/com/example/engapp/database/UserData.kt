@@ -7,6 +7,6 @@ import androidx.room.PrimaryKey
 @Entity
 class UserData {
     @PrimaryKey
-    val id: Int = 0
+    var id: Int? = null
     var userId: Int? = null
 }
