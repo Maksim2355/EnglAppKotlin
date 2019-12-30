@@ -17,8 +17,8 @@ import com.example.engapp.database.*
 
 
 /*
-Данная часть программы должна запоминать пользователя и выполнить
-вход в приложение и запомнить данные для входа в userPref
+Данная часть программа должна либо авторизовать пользователя, либо включать
+фрагмент для авторизации
  */
 class ProfileFragment : Fragment(), View.OnClickListener{
     //View фрагмента и контроллер
@@ -42,7 +42,11 @@ class ProfileFragment : Fragment(), View.OnClickListener{
     ): View? {
         myFragment =
             inflater.inflate(R.layout.fragment_profile, container, false)
+        navController =
+            activity?.let { Navigation.findNavController(it, R.id.nav_host_fragment) }!!
         init()
+
+
         // Inflate the layout for this fragment
         return myFragment
     }
@@ -55,14 +59,14 @@ class ProfileFragment : Fragment(), View.OnClickListener{
             R.id.loginBut-> {
                 //Получаем информацию об аккаунтах
                 val listAccount: List<AccountInData> = accountDao.getLoginInfo()!!
-                //Перебираем каждое значение, если оно подходит, то выполняем регистрацию
+                //Перебираем каждое значение, если оно подходит, то выполняем авторизацию
                 for(item in listAccount){
                     if(login.text.toString() == item.login &&
                             password.text.toString() == item.password){
                         val user = UserData()
                         user.userId = item.id
                         userDao.update(user)
-                        navController.navigate(com.example.engapp.R.id.userFragment)
+                        navController.navigate(R.id.userFragment)
                     }
                 }
                 login.text = null
@@ -71,11 +75,8 @@ class ProfileFragment : Fragment(), View.OnClickListener{
 
         }
     }
-
+    //Создаем переменные и присваем обработчики
     private fun init(){
-        //Получаем контроллер для фрагмента
-        navController =
-            activity?.let { Navigation.findNavController(it, com.example.engapp.R.id.nav_host_fragment) }!!
         regBut =
             myFragment.findViewById<Button>(R.id.regBut)
         loginBut =

@@ -12,8 +12,10 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.engapp.App
 import com.example.engapp.R
+import com.example.engapp.database.AccountInData
 import com.example.engapp.database.AppDatabase
 import com.example.engapp.database.DataAccount
+import com.example.engapp.database.DataAccountDao
 
 
 /**
@@ -45,6 +47,7 @@ class AddProfileFragment : Fragment(), View.OnClickListener {
         return myFragment
     }
 
+    //Обработчик событий. Создаем экземпляр БД и добавляем аккаунт, если поле ввода не пусто
     override fun onClick(v: View?) {
         if (emptyIn())
         {
@@ -52,13 +55,14 @@ class AddProfileFragment : Fragment(), View.OnClickListener {
             val accountDao = db.accountDao()
             val account = DataAccount(loginInput.text.toString(), emailInput.text.toString(),
                 passwordInput.text.toString(), "Add Description",null)
-            accountDao!!.insertAccount(account)
-
+            if (accountDao != null && profileInDb(accountDao, account)) {
+                accountDao.insertAccount(account)
+            }else{println("Error")}
             navController.popBackStack()
         }
 
     }
-
+    //Объявляем все переменные и присваем обработчик
     private fun initView(){
         loginInput = myFragment.findViewById(R.id.loginReg)
         emailInput = myFragment.findViewById(R.id.emailReg)
@@ -67,10 +71,20 @@ class AddProfileFragment : Fragment(), View.OnClickListener {
         regBut.setOnClickListener(this)
     }
 
+    //Проверяем, пустое ли поле для ввода
     private fun emptyIn(): Boolean{
         return (loginInput.text.toString()!= "" && emailInput.text.toString()!= ""
                 && passwordInput.text.toString()!= "")
-
+    }
+    //Проверяем, есть ли в базе данных логин, который вводит пользователь
+    private fun profileInDb(acDao: DataAccountDao, ac:DataAccount) : Boolean{
+        val allAcc: List<AccountInData> = acDao.getLoginInfo()!!
+        for(item in allAcc){
+            if (item.login == ac.login){
+                return false
+            }
+        }
+        return true
     }
 
 }

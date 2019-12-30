@@ -1,15 +1,23 @@
 package com.example.engapp.profile
 
 
+import android.media.Image
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.example.engapp.App
 import com.example.engapp.R
+import com.example.engapp.database.AppDatabase
+import com.example.engapp.database.DataAccountDao
+import com.example.engapp.database.UserData
+import com.example.engapp.database.UserDataDao
 
 class UserFragment : Fragment(), View.OnClickListener {
     //Преобразуем наш фрагмент во View и получаем контроллер фрагментов
@@ -18,6 +26,9 @@ class UserFragment : Fragment(), View.OnClickListener {
     //Кнопка добавления поста и выхода из аккаунта
     private lateinit var addContent: Button
     private lateinit var signOut: Button
+    //Экземпляры базы данных и интерфейсы для получения/Вставки данных
+    private val db: AppDatabase? = App.instance!!.database!!
+    private val userDao: UserDataDao = db!!.userDao()!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,13 +61,20 @@ class UserFragment : Fragment(), View.OnClickListener {
         when(v!!.id){
             R.id.AddContentBut -> {navController!!.navigate(R.id.addWorkFragment)}
             R.id.SignOutBut -> {
-
+                val active = UserData()
+                active.userId = null
+                userDao.update(active)
+                navController!!.navigate(R.id.profileFragment)
             }
         }
 
     }
 
     private fun drawUI() {
+        //Получаем элементы для разрисовки профиля
+        var imageProfile = myFragment!!.findViewById<ImageView>(R.id.iconProfile)
+        var nameLogin = myFragment!!.findViewById<TextView>(R.id.loginUser)
+        var desc = myFragment!!.findViewById<Button>(R.id.accountDescription)
 
     }
 
