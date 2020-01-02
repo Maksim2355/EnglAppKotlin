@@ -29,6 +29,7 @@ class UserFragment : Fragment(), View.OnClickListener {
     //Экземпляры базы данных и интерфейсы для получения/Вставки данных
     private val db: AppDatabase? = App.instance!!.database!!
     private val userDao: UserDataDao = db!!.userDao()!!
+    private val accountDao: DataAccountDao = db!!.accountDao()!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -72,9 +73,16 @@ class UserFragment : Fragment(), View.OnClickListener {
 
     private fun drawUI() {
         //Получаем элементы для разрисовки профиля
-        var imageProfile = myFragment!!.findViewById<ImageView>(R.id.iconProfile)
-        var nameLogin = myFragment!!.findViewById<TextView>(R.id.loginUser)
-        var desc = myFragment!!.findViewById<Button>(R.id.accountDescription)
+        val nameLogin = myFragment!!.findViewById<TextView>(R.id.loginUser)
+        val desc = myFragment!!.findViewById<Button>(R.id.accountDescription)
+        //Получим данного из авторизированного аккаунта
+        val activeId = userDao.getUserData()!!.userId
+        //Получим сам авторизированный аккаунт
+        val activeAccount = accountDao.getById(activeId!!)
+        nameLogin.text = activeAccount!!.login
+        desc.text = activeAccount.accountDesc
+
+
 
     }
 
