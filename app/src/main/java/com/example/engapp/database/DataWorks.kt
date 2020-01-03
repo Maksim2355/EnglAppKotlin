@@ -20,13 +20,15 @@ import androidx.room.PrimaryKey
     Значение 4- Элемент находится в разделе Profile и allWorks
  */
 @Entity
-data class DataWorks(@PrimaryKey(autoGenerate = true) val id: Int,
-                        var title: String,
-                        var contentDesc: String,
-                        var contentRu: String,
-                        var contentEn: String,
-                        var rating: Int?,
-                        var pathImage: String?,
-                        var pathAudio: String?,
-                        var FLAG_SECTION: Int) {
+class DataWorks {
+    @PrimaryKey(autoGenerate = true)
+    var id: Int? = null
+    var title: String? = null
+    var contentDesc: String? = null
+    var contentRu: String? = null
+    var contentEn: String? = null
+    var rating: Int? = null
+    var pathImage: String? = null
+    var pathAudio: String? = null
+    var FLAG_SECTION: Int = 4
 }

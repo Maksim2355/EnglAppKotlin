@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/favoriteFragment">
+    app:startDestination="@id/worksFragment">
     <fragment
         android:id="@+id/favoriteFragment"
         android:name="com.example.engapp.UI.FavoriteFragment"

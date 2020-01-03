@@ -15,4 +15,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_audio_to_work">Add audio to work</string>
+    <string name="add_title">Add title</string>
+    <string name="add_work_in_english">Add work (in English)</string>
 </resources>

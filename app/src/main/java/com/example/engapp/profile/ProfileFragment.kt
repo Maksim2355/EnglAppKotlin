@@ -27,10 +27,6 @@ class ProfileFragment : Fragment(), View.OnClickListener{
     //Кнопка регистрации и входа
     private lateinit var regBut: Button
     private lateinit var loginBut: Button
-    //Поля для ввода текста
-
-    //Экземпляры базы данных и интерфейсы для получения/Вставки данных
-
 
 
     override fun onCreateView(

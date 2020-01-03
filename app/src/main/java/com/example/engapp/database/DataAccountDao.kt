@@ -1,9 +1,6 @@
 package com.example.engapp.database
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface DataAccountDao {
@@ -25,5 +22,7 @@ interface DataAccountDao {
     @Query("SELECT * FROM DataAccount WHERE id = :id")
     fun getById(id: Int): DataAccount?
 
+    @Update
+    fun update(dataAccount: DataAccount?)
 
 }

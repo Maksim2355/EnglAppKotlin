@@ -1,9 +1,6 @@
 package com.example.engapp.database
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface DataWorksDao {
@@ -30,4 +27,9 @@ interface DataWorksDao {
     //Получение элементов для заголовка
     @Query("SELECT id, title, contentDesc, rating, pathImage FROM DataWorks")
     fun getItem(): List<ItemList?>?
+
+    //Обновление данных
+    @Update
+    fun update(dataWorks: DataWorks?)
+
 }
