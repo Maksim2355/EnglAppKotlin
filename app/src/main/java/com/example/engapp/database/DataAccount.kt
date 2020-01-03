@@ -2,9 +2,6 @@ package com.example.engapp.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverter
-import androidx.room.TypeConverters
-import com.example.engapp.database.conventor.ConvList
 
 /*
 1. Значение id
@@ -19,8 +16,7 @@ data class DataAccount(
                        val email: String,
                        var password: String,
                        var accountDesc: String,
-                       @TypeConverters(ConvList::class)
-                       var idWorks: MutableList<String?>?) {
+                       var idWorks: String) {
     @PrimaryKey(autoGenerate = true)
     var id: Long? = null
 }

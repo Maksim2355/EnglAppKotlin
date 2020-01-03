@@ -28,12 +28,9 @@ class ProfileFragment : Fragment(), View.OnClickListener{
     private lateinit var regBut: Button
     private lateinit var loginBut: Button
     //Поля для ввода текста
-    private lateinit var login: EditText
-    private lateinit var password: EditText
+
     //Экземпляры базы данных и интерфейсы для получения/Вставки данных
-    private val db:AppDatabase? = App.instance!!.database!!
-    private val userDao: UserDataDao = db!!.userDao()!!
-    private val accountDao: DataAccountDao = db!!.accountDao()!!
+
 
 
     override fun onCreateView(
@@ -57,6 +54,12 @@ class ProfileFragment : Fragment(), View.OnClickListener{
                 navController.navigate(R.id.addProfileFragment)
             //Необходимо реализовать авторизацию, изменение активного юзера
             R.id.loginBut-> {
+                val login: EditText = myFragment.findViewById(R.id.loginIn)
+                val password = myFragment.findViewById<EditText>(R.id.passwordIn)
+
+                val db:AppDatabase = App.instance!!.database!!
+                val userDao: UserDataDao = db.userDao()!!
+                val accountDao: DataAccountDao = db.accountDao()!!
                 //Получаем информацию об аккаунтах
                 val listAccount: List<AccountInData> = accountDao.getLoginInfo()!!
                 //Перебираем каждое значение, если оно подходит, то выполняем авторизацию
@@ -64,6 +67,7 @@ class ProfileFragment : Fragment(), View.OnClickListener{
                     if(login.text.toString() == item.login &&
                             password.text.toString() == item.password){
                         val user = UserData()
+                        user.id = userDao.getUserData()!!.id
                         user.userId = item.id
                         userDao.update(user)
                         navController.navigate(R.id.userFragment)
@@ -78,9 +82,9 @@ class ProfileFragment : Fragment(), View.OnClickListener{
     //Создаем переменные и присваем обработчики
     private fun init(){
         regBut =
-            myFragment.findViewById<Button>(R.id.regBut)
+            myFragment.findViewById(R.id.regBut)
         loginBut =
-            myFragment.findViewById<Button>(R.id.loginBut)
+            myFragment.findViewById(R.id.loginBut)
         regBut.setOnClickListener(this)
         loginBut.setOnClickListener(this)
     }

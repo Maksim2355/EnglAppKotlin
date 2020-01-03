@@ -34,7 +34,6 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.profile ->{
-
                     if(userDao?.getUserData()?.userId != null) {
                         navController.navigate(R.id.userFragment)
                     }else{

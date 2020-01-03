@@ -63,6 +63,7 @@ class UserFragment : Fragment(), View.OnClickListener {
             R.id.AddContentBut -> {navController!!.navigate(R.id.addWorkFragment)}
             R.id.SignOutBut -> {
                 val active = UserData()
+                active.id = userDao.getUserData()!!.id
                 active.userId = null
                 userDao.update(active)
                 navController!!.navigate(R.id.profileFragment)
@@ -81,8 +82,6 @@ class UserFragment : Fragment(), View.OnClickListener {
         val activeAccount = accountDao.getById(activeId!!)
         nameLogin.text = activeAccount!!.login
         desc.text = activeAccount.accountDesc
-
-
 
     }
 
