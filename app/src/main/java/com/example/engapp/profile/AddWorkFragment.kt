@@ -14,9 +14,7 @@ import com.example.engapp.App
 import com.example.engapp.R
 import com.example.engapp.database.*
 
-/**
- * A simple [Fragment] subclass.
- */
+
 class AddWorkFragment : Fragment(), View.OnClickListener {
     private lateinit var  myFragment: View
     private var count = 1
@@ -53,24 +51,33 @@ class AddWorkFragment : Fragment(), View.OnClickListener {
             который позже заполняем до конца и вставляем в базу данных
              */
             R.id.nextAdd-> {
-                if(count == 1){
+                if(count == 1 && (titleDesc.text.toString() != "") &&
+                    (enru.text.toString() != "")){
                     work.title = titleDesc.text.toString()
                     work.contentEn = enru.text.toString()
                     drawTwo()
                     count++
                 }
                 else {
-                    //Заполняем работу
-                    work.contentDesc = titleDesc.text.toString()
-                    work.contentRu = enru.text.toString()
-                    val acRed =
-                        accountDao.getById(userDao.getUserData()!!.userId!!)
-                    acRed!!.idWorks += work.id.toString() + " "
-                    accountDao.update(acRed)
-                    worksDao.insertAll(work)
-                    val navController =
-                        activity?.let { Navigation.findNavController(it, R.id.nav_host_fragment) }!!
-                    navController.navigate(R.id.userFragment)
+                    if(count == 2 && (titleDesc.text.toString() != "") &&
+                        (enru.text.toString() != "")) {
+                        //Заполняем работу
+                        work.contentDesc = titleDesc.text.toString()
+                        work.contentRu = enru.text.toString()
+                        val acRed =
+                            accountDao.getById(userDao.getUserData()!!.userId!!)
+                        acRed!!.idWorks += work.id.toString() + " "
+                        accountDao.update(acRed)
+                        worksDao.insertAll(work)
+                        val navController =
+                            activity?.let {
+                                Navigation.findNavController(
+                                    it,
+                                    R.id.nav_host_fragment
+                                )
+                            }!!
+                        navController.navigate(R.id.userFragment)
+                    }
                 }
             }
         }
