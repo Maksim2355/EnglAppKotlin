@@ -16,7 +16,9 @@ data class DataAccount(
                        val email: String,
                        var password: String,
                        var accountDesc: String,
-                       var idWorks: String) {
+                       //Список с id работ пользователя и избранных работ
+                       var idWorks: String,
+                       var idFavorites: String) {
     @PrimaryKey(autoGenerate = true)
     var id: Long? = null
 }

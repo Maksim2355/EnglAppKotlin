@@ -1,13 +1,9 @@
 package com.example.engapp
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.room.Room
-import com.example.engapp.UI.User
 import com.example.engapp.database.AppDatabase
 import com.google.android.material.bottomnavigation.BottomNavigationView
 

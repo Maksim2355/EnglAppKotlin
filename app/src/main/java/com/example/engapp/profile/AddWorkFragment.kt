@@ -30,6 +30,7 @@ class AddWorkFragment : Fragment(), View.OnClickListener {
     private val accountDao: DataAccountDao = db!!.accountDao()!!
     //С помощью данного интерфейса добавляем работу в базу данных
     private val worksDao: DataWorksDao = db!!.worksDao()!!
+    private val work  = DataWorks()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,7 +44,7 @@ class AddWorkFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        val work  = DataWorks()
+
         when(v!!.id){
             //Нажимая данную кнопку, мы заставляем пользователя дать аудио/картинку
             R.id.addPath-> {  }
@@ -52,7 +53,8 @@ class AddWorkFragment : Fragment(), View.OnClickListener {
              */
             R.id.nextAdd-> {
                 if(count == 1 && (titleDesc.text.toString() != "") &&
-                    (enru.text.toString() != "")){
+                    (enru.text.toString() != ""))
+                {
                     work.title = titleDesc.text.toString()
                     work.contentEn = enru.text.toString()
                     drawTwo()

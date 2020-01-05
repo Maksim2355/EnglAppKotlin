@@ -12,12 +12,7 @@ import androidx.room.PrimaryKey
 6. Рейтинг работы
 7. Путь к картинке для обложки работы
 9. Путь к аудиофайлу для обложки работы
-10. Флаг для поиска по разделам
-    Значение 0- Элемент находится в разделе allWorks
-    Значение 1- Элемент находится в разделе Favorite
-    Значение 2- Элемент находится в разделе Profile
-    Значение 3- Элемент находится в разделе Profile и Favorite
-    Значение 4- Элемент находится в разделе Profile и allWorks
+10.id автора работы
  */
 @Entity
 class DataWorks {
@@ -30,5 +25,5 @@ class DataWorks {
     var rating: Int? = null
     var pathImage: String? = null
     var pathAudio: String? = null
-    var FLAG_SECTION: Int = 4
+    var idAuthor: Int? = null
 }
