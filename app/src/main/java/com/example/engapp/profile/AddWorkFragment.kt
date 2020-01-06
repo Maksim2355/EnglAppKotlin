@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.EditText
 import androidx.navigation.Navigation
 import com.example.engapp.App
+import com.example.engapp.ListId
 import com.example.engapp.R
 import com.example.engapp.database.*
 
@@ -66,9 +67,13 @@ class AddWorkFragment : Fragment(), View.OnClickListener {
                         //Заполняем работу
                         work.contentDesc = titleDesc.text.toString()
                         work.contentRu = enru.text.toString()
+                        work.idAuthor = userDao.getUserData()!!.userId!!
+                        //Получаем аккаунт по id
                         val acRed =
-                            accountDao.getById(userDao.getUserData()!!.userId!!)
-                        acRed!!.idWorks += work.id.toString() + " "
+                            accountDao.getById(work.idAuthor!!)
+                        //Добавляем в данные об аккаунте дополнительную работу и обновляем значение
+                        val ac = ListId(acRed!!.idWorks)
+                        work.id?.let { ac.addItem(it) }
                         accountDao.update(acRed)
                         worksDao.insertAll(work)
                         val navController =

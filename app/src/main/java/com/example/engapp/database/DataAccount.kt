@@ -15,10 +15,10 @@ data class DataAccount(
                        val login: String,
                        val email: String,
                        var password: String,
-                       var accountDesc: String,
+                       var accountDesc: String?,
                        //Список с id работ пользователя и избранных работ
                        var idWorks: String,
                        var idFavorites: String) {
     @PrimaryKey(autoGenerate = true)
-    var id: Long? = null
+    var id: Int? = null
 }

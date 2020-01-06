@@ -54,7 +54,8 @@ class AddProfileFragment : Fragment(), View.OnClickListener {
             db = App.instance!!.database!!
             val accountDao = db.accountDao()
             val account = DataAccount(loginInput.text.toString(), emailInput.text.toString(),
-                passwordInput.text.toString(), "Add Description","")
+                passwordInput.text.toString(),
+                "Add Description", "", "")
             if (accountDao != null && profileInDb(accountDao, account)) {
                 accountDao.insertAccount(account)
             }else{println("Error")}
@@ -73,7 +74,8 @@ class AddProfileFragment : Fragment(), View.OnClickListener {
 
     //Проверяем, пустое ли поле для ввода
     private fun emptyIn(): Boolean{
-        return (loginInput.text.toString()!= "" && emailInput.text.toString()!= ""
+        return (loginInput.text.toString()!= "" &&
+                emailInput.text.toString()!= ""
                 && passwordInput.text.toString()!= "")
     }
     //Проверяем, есть ли в базе данных логин, который вводит пользователь

@@ -24,6 +24,9 @@ interface DataWorksDao {
     @Query("SELECT id, title, contentDesc, rating, pathImage FROM DataWorks")
     fun getItem(): List<ItemList?>?
 
+    @Query("SELECT id, title, contentDesc, rating, pathImage FROM DataWorks WHERE id = :id")
+    fun getItemById(id: Int): ItemList?
+
     //Обновление данных
     @Update
     fun update(dataWorks: DataWorks?)
