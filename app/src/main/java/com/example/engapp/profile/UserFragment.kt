@@ -17,11 +17,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.engapp.App
 import com.example.engapp.DataAdapter
+import com.example.engapp.ListId
 import com.example.engapp.R
-import com.example.engapp.database.AppDatabase
-import com.example.engapp.database.DataAccountDao
-import com.example.engapp.database.UserData
-import com.example.engapp.database.UserDataDao
+import com.example.engapp.database.*
 
 class UserFragment : Fragment(), View.OnClickListener {
     //Преобразуем наш фрагмент во View и получаем контроллер фрагментов
@@ -99,7 +97,21 @@ class UserFragment : Fragment(), View.OnClickListener {
         listRecycler = myFragment!!.findViewById(R.id.userWorksRecycler)
         val layoutManager = LinearLayoutManager(context)
         listRecycler.layoutManager = layoutManager
-        val adapter = DataAdapter(context, 2)
+        val worksDao: DataWorksDao = db!!.worksDao()!!
+        val accountDao: DataAccountDao = db.accountDao()!!
+        val userDao: UserDataDao = db.userDao()!!
+
+
+        val worksIdList =
+            accountDao.getById(userDao.getUserData()!!.userId!!)!!.idWorks
+        val idWorks = ListId(worksIdList)
+        val mutList = mutableListOf<ItemList>()
+        //Ищу заголовки во всех работах и добавляю в новый лист
+        for (i in idWorks.getList()) {
+            mutList.add(worksDao.getItemById(i)!!)
+        }
+        val listWoks = mutList.toList()
+        val adapter = DataAdapter(2, listWoks)
         listRecycler.adapter = adapter
     }
 

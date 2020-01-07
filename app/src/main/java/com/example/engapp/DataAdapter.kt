@@ -17,45 +17,17 @@ import com.example.engapp.database.*
 1- Делаем список для раздела Favorite
 2- Делаем список для раздела Profile
  */
-class DataAdapter(context: Context?, private val idRecycler: Int) :
+class DataAdapter(private val idRecycler: Int, listWorks: List<ItemList?>?) :
     RecyclerView.Adapter<DataAdapter.ViewHolder>() {
     //Получаем экземпляры
-    private val db: AppDatabase? = App.instance!!.database!!
     //Из этого листа вытягиваем id с помощью позиции
-    private var listWoks: List<ItemList?>? = db!!.worksDao()!!.getItem()!!
+    private val listWoks = listWorks
+    private var size =  listWorks!!.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
-        if(idRecycler == 1 || idRecycler == 2) {
-            val worksDao: DataWorksDao = db!!.worksDao()!!
-            val accountDao: DataAccountDao = db.accountDao()!!
-            val userDao: UserDataDao = db.userDao()!!
-            when (idRecycler) {
-                1 -> {
-                    //Получим список избранных работ пользователя
-                    val favoriteIdList =
-                        accountDao.getById(userDao.getUserData()!!.userId!!)!!.idFavorites
-                    val idWorks = ListId(favoriteIdList)
-                    val mutList = mutableListOf<ItemList>()
-                    //Ищу заголовки во всех работах и добавляю в новый лист
-                    for (i in idWorks.getList()) {
-                        mutList.add(worksDao.getItemById(i)!!)
-                    }
-                    listWoks = mutList.toList()
-                }
-                2 -> {
-                    val worksIdList =
-                        accountDao.getById(userDao.getUserData()!!.userId!!)!!.idWorks
-                    val idWorks = ListId(worksIdList)
-                    val mutList = mutableListOf<ItemList>()
-                    //Ищу заголовки во всех работах и добавляю в новый лист
-                    for (i in idWorks.getList()) {
-                        mutList.add(worksDao.getItemById(i)!!)
-                    }
-                    listWoks = mutList.toList()
-                }
-            }
-        }
+
+
         val context = parent.context
         val inflater = LayoutInflater.from(context)
         val view = inflater.inflate(R.layout.item_work, parent, false)
@@ -65,7 +37,7 @@ class DataAdapter(context: Context?, private val idRecycler: Int) :
 
     override fun getItemCount(): Int {
         //Возвращаем количество элементов
-        return listWoks!!.size
+        return size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -104,37 +76,37 @@ class DataAdapter(context: Context?, private val idRecycler: Int) :
         override fun onClick(v: View?) {
             when(v!!.id){
                 R.id.butDelAdd-> {
-                    val position: Int = adapterPosition
-                    val workId = listWorks!![position]!!.id
-                    when(idRecycler){
-                        //Реализация добавления в раздел favorite
-                        0->{
-                            if (userId != null){
-                                val acRed = accountDao.getById(userId)
+                    if(userId != null) {
+                        val position: Int = adapterPosition
+                        val workId = listWorks!![position]!!.id
+                        val acRed = accountDao.getById(userId)
+                        when (idRecycler) {
+                            //Реализация добавления в раздел favorite
+                            0 -> {
+                                //Нашли данные о нашем аккаунте
                                 //Вытянули id работы, по которой был сделан клик
                                 val addFavorite = ListId(acRed!!.idFavorites)
                                 addFavorite.addItem(workId)
                                 acRed.idFavorites = addFavorite.getList().toString()
                                 accountDao.update(acRed)
                             }
-                        }
-                        //Реализация удаления из Favorite
-                        1->{
-                            val acRed = accountDao.getById(userId!!)
-                            val delFavorite = ListId(acRed!!.idFavorites)
-                            delFavorite.delItem(workId)
-                            acRed.idFavorites = delFavorite.getList().toString()
-                            accountDao.update(acRed)
-                        }
-                        //Реализация удаления из всей БД. Удаляем из списка его работ и всей бд
-                        2->{
-                            val acRed = accountDao.getById(userId!!)
-                            val delWorks = ListId(acRed!!.idWorks)
-                            delWorks.delItem(workId)
-                            val del = worksDao!!.getById(workId)
-                            acRed.idFavorites = delWorks.getList().toString()
-                            accountDao.update(acRed)
-                            worksDao.deleteWorks(del)
+                            //Реализация удаления из Favorite
+                            1 -> {
+                                val delFavorite = ListId(acRed!!.idFavorites)
+                                delFavorite.delItem(workId)
+                                acRed.idFavorites = delFavorite.getList().toString()
+                                accountDao.update(acRed)
+                            }
+                            //Реализация удаления из всей БД. Удаляем из списка его работ и всей бд
+                            2 -> {
+                                //Получаем наш аккаунт
+                                val delWorks = ListId(acRed!!.idWorks)
+                                delWorks.delItem(workId)
+                                val del = worksDao!!.getById(workId)
+                                acRed.idFavorites = delWorks.getList().toString()
+                                worksDao.deleteWorks(del)
+                                accountDao.update(acRed)
+                            }
                         }
                     }
                 }

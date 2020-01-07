@@ -3,7 +3,7 @@ package com.example.engapp.database
 import androidx.room.Database
 import androidx.room.RoomDatabase
 
-@Database(entities = [DataAccount::class, DataWorks::class, UserData::class], version = 5, exportSchema = false)
+@Database(entities = [DataAccount::class, DataWorks::class, UserData::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun worksDao(): DataWorksDao?
     abstract fun accountDao(): DataAccountDao?
