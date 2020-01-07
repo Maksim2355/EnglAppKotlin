@@ -101,9 +101,12 @@ class DataAdapter(private val idRecycler: Int, listWorks: List<ItemList?>?) :
                             2 -> {
                                 //Получаем наш аккаунт
                                 val delWorks = ListId(acRed!!.idWorks)
+                                val delFavor = ListId(acRed.idFavorites)
+                                delFavor.delItem(workId)
                                 delWorks.delItem(workId)
                                 val del = worksDao!!.getById(workId)
-                                acRed.idFavorites = delWorks.getList().toString()
+                                acRed.idFavorites = delFavor.getList().toString()
+                                acRed.idWorks = delWorks.getList().toString()
                                 worksDao.deleteWorks(del)
                                 accountDao.update(acRed)
                             }
