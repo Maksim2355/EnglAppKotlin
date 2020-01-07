@@ -21,42 +21,46 @@ class DataAdapter(context: Context?, private val idRecycler: Int) :
     RecyclerView.Adapter<DataAdapter.ViewHolder>() {
     //Получаем экземпляры
     private val db: AppDatabase? = App.instance!!.database!!
-    private val worksDao: DataWorksDao = db!!.worksDao()!!
-    private val accountDao: DataAccountDao = db!!.accountDao()!!
-    private val userDao: UserDataDao = db!!.userDao()!!
+    //Из этого листа вытягиваем id с помощью позиции
     private var listWoks: List<ItemList?>? = db!!.worksDao()!!.getItem()!!
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        when(idRecycler){
-            1-> {
-                //Получим список избранных работ пользователя
-                val favoriteIdList =
-                    db!!.accountDao()!!.getById(db.userDao()!!.getUserData()!!.userId!!)!!.idFavorites
-                val idWorks = ListId(favoriteIdList)
-                val mutList = mutableListOf<ItemList>()
-                //Ищу заголовки во всех работах и добавляю в новый лист
-                for (i in idWorks.getList()){
-                    mutList.add(db.worksDao()!!.getItemById(i)!!)
+
+        if(idRecycler == 1 || idRecycler == 2) {
+            val worksDao: DataWorksDao = db!!.worksDao()!!
+            val accountDao: DataAccountDao = db.accountDao()!!
+            val userDao: UserDataDao = db.userDao()!!
+            when (idRecycler) {
+                1 -> {
+                    //Получим список избранных работ пользователя
+                    val favoriteIdList =
+                        accountDao.getById(userDao.getUserData()!!.userId!!)!!.idFavorites
+                    val idWorks = ListId(favoriteIdList)
+                    val mutList = mutableListOf<ItemList>()
+                    //Ищу заголовки во всех работах и добавляю в новый лист
+                    for (i in idWorks.getList()) {
+                        mutList.add(worksDao.getItemById(i)!!)
+                    }
+                    listWoks = mutList.toList()
                 }
-                listWoks = mutList.toList()
-            }
-            2-> {
-                val worksIdList =
-                    db!!.accountDao()!!.getById(db.userDao()!!.getUserData()!!.userId!!)!!.idWorks
-                val idWorks = ListId(worksIdList)
-                val mutList = mutableListOf<ItemList>()
-                //Ищу заголовки во всех работах и добавляю в новый лист
-                for (i in idWorks.getList()){
-                    mutList.add(db.worksDao()!!.getItemById(i)!!)
+                2 -> {
+                    val worksIdList =
+                        accountDao.getById(userDao.getUserData()!!.userId!!)!!.idWorks
+                    val idWorks = ListId(worksIdList)
+                    val mutList = mutableListOf<ItemList>()
+                    //Ищу заголовки во всех работах и добавляю в новый лист
+                    for (i in idWorks.getList()) {
+                        mutList.add(worksDao.getItemById(i)!!)
+                    }
+                    listWoks = mutList.toList()
                 }
-                listWoks = mutList.toList()
             }
         }
         val context = parent.context
         val inflater = LayoutInflater.from(context)
         val view = inflater.inflate(R.layout.item_work, parent, false)
 
-        return ViewHolder(view)
+        return ViewHolder(view, idRecycler, listWoks)
     }
 
     override fun getItemCount(): Int {
@@ -69,12 +73,24 @@ class DataAdapter(context: Context?, private val idRecycler: Int) :
 
     }
 
-    class ViewHolder internal constructor(view: View) :
-        RecyclerView.ViewHolder(view) {
-        private val imageView: ImageView = view.findViewById<View>(R.id.imageWorks) as ImageView
-        private val titleView: TextView = view.findViewById<View>(R.id.titleWorks) as TextView
-        private val contentDescView: TextView = view.findViewById<View>(R.id.contentDescWorks) as TextView
-        private val delAddButton: Button = view.findViewById(R.id.butDelAdd) as Button
+    class ViewHolder internal constructor(view: View, private val idRecycler: Int,
+                                          private val listWorks: List<ItemList?>? ) :
+        RecyclerView.ViewHolder(view), View.OnClickListener {
+        private var imageView: ImageView = view.findViewById<View>(R.id.imageWorks) as ImageView
+        private var titleView: TextView = view.findViewById<View>(R.id.titleWorks) as TextView
+        private var contentDescView: TextView = view.findViewById<View>(R.id.contentDescWorks) as TextView
+        private var delAddButton: Button = view.findViewById(R.id.butDelAdd) as Button
+        private val db: AppDatabase? = App.instance!!.database!!
+        private val accountDao = db!!.accountDao()!!
+        private val userDao = db!!.userDao()!!
+        private val worksDao = db!!.worksDao()
+        private val userId = userDao.getUserData()!!.userId
+
+        init {
+            delAddButton.setOnClickListener(this)
+            view.setOnClickListener(this)
+        }
+
 
         fun bind(itemWorks: ItemList) {
             if (itemWorks.pathImage == null) {
@@ -83,6 +99,50 @@ class DataAdapter(context: Context?, private val idRecycler: Int) :
                     }
             titleView.text = itemWorks.title
             contentDescView.text = itemWorks.contentDesc
+        }
+
+        override fun onClick(v: View?) {
+            when(v!!.id){
+                R.id.butDelAdd-> {
+                    val position: Int = adapterPosition
+                    val workId = listWorks!![position]!!.id
+                    when(idRecycler){
+                        //Реализация добавления в раздел favorite
+                        0->{
+                            if (userId != null){
+                                val acRed = accountDao.getById(userId)
+                                //Вытянули id работы, по которой был сделан клик
+                                val addFavorite = ListId(acRed!!.idFavorites)
+                                addFavorite.addItem(workId)
+                                acRed.idFavorites = addFavorite.getList().toString()
+                                accountDao.update(acRed)
+                            }
+                        }
+                        //Реализация удаления из Favorite
+                        1->{
+                            val acRed = accountDao.getById(userId!!)
+                            val delFavorite = ListId(acRed!!.idFavorites)
+                            delFavorite.delItem(workId)
+                            acRed.idFavorites = delFavorite.getList().toString()
+                            accountDao.update(acRed)
+                        }
+                        //Реализация удаления из всей БД. Удаляем из списка его работ и всей бд
+                        2->{
+                            val acRed = accountDao.getById(userId!!)
+                            val delWorks = ListId(acRed!!.idWorks)
+                            delWorks.delItem(workId)
+                            val del = worksDao!!.getById(workId)
+                            acRed.idFavorites = delWorks.getList().toString()
+                            accountDao.update(acRed)
+                            worksDao.deleteWorks(del)
+                        }
+                    }
+                }
+                R.layout.item_work-> {
+
+                }
+
+            }
         }
     }
 }

@@ -68,14 +68,17 @@ class AddWorkFragment : Fragment(), View.OnClickListener {
                         work.contentDesc = titleDesc.text.toString()
                         work.contentRu = enru.text.toString()
                         work.idAuthor = userDao.getUserData()!!.userId!!
-                        //Получаем аккаунт по id
-                        val acRed =
-                            accountDao.getById(work.idAuthor!!)
-                        //Добавляем в данные об аккаунте дополнительную работу и обновляем значение
-                        val ac = ListId(acRed!!.idWorks)
-                        work.id?.let { ac.addItem(it) }
-                        accountDao.update(acRed)
                         worksDao.insertAll(work)
+                        /*Добавили работу, теперь получаем id этой работы и добавляем
+                        ее к работам аккаунта
+                        */
+                        val idWork = worksDao.getByTitle(work.title!!)!!.id
+                        val account =
+                            accountDao.getById(userDao.getUserData()!!.userId!!)
+                        val listUser = ListId(account!!.idWorks)
+                        listUser.addItem(idWork!!)
+                        account.idWorks = listUser.getList().toString()
+                        accountDao.update(account)
                         val navController =
                             activity?.let {
                                 Navigation.findNavController(

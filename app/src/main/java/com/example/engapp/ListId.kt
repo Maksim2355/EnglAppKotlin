@@ -30,9 +30,6 @@ class ListId(var data: String) {
     fun addItem(item: Int) {
         listMu.add(item)
     }
-    fun getListMu(): MutableList<Int> {
-        return listMu
-    }
     fun getList(): List<Int> {
         return listMu.toList()
     }

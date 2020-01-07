@@ -16,6 +16,7 @@ data class DataAccount(
                        val email: String,
                        var password: String,
                        var accountDesc: String?,
+                       var pathAvatar: String?,
                        //Список с id работ пользователя и избранных работ
                        var idWorks: String,
                        var idFavorites: String) {

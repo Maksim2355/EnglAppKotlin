@@ -22,11 +22,11 @@ class WorksFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val myFragment: View =
-            inflater.inflate(R.layout.fragment_works, container, false)
+        inflater.inflate(R.layout.fragment_works, container, false)
         listRecycler = myFragment.findViewById(R.id.allWokrsRecycler)
         val layoutManager = LinearLayoutManager(context)
         listRecycler.layoutManager = layoutManager
-        val adapter = DataAdapter(context, 4)
+        val adapter = DataAdapter(context, 0)
         listRecycler.adapter = adapter
         return myFragment
     }

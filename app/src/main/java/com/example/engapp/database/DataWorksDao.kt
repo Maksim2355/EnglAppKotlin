@@ -20,6 +20,8 @@ interface DataWorksDao {
     @Query("SELECT * FROM DataWorks WHERE id = :id")
     fun getById(id: Int): DataWorks?
 
+    @Query("SELECT * FROM DataWorks WHERE title = :title")
+    fun getByTitle(title: String): DataWorks?
     //Получение элементов для заголовка
     @Query("SELECT id, title, contentDesc, rating, pathImage FROM DataWorks")
     fun getItem(): List<ItemList?>?

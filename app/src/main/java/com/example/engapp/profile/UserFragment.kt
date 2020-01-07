@@ -8,11 +8,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.engapp.App
+import com.example.engapp.DataAdapter
 import com.example.engapp.R
 import com.example.engapp.database.AppDatabase
 import com.example.engapp.database.DataAccountDao
@@ -23,6 +27,7 @@ class UserFragment : Fragment(), View.OnClickListener {
     //Преобразуем наш фрагмент во View и получаем контроллер фрагментов
     private var  myFragment: View? = null
     private var navController: NavController? = null
+    private lateinit var listRecycler: RecyclerView
     //Кнопка добавления поста и выхода из аккаунта
     private lateinit var addContent: Button
     private lateinit var signOut: Button
@@ -41,6 +46,7 @@ class UserFragment : Fragment(), View.OnClickListener {
         //Получаем контроллер для передвижения по фрагментам
         drawUI()
         init()
+        drawRecycler()
 
         // Inflate the layout for this fragment
         return myFragment
@@ -76,13 +82,25 @@ class UserFragment : Fragment(), View.OnClickListener {
         //Получаем элементы для разрисовки профиля
         val nameLogin = myFragment!!.findViewById<TextView>(R.id.loginUser)
         val desc = myFragment!!.findViewById<Button>(R.id.accountDescription)
+        val avatar = myFragment!!.findViewById<ImageButton>(R.id.iconProfile)
         //Получим данного из авторизированного аккаунта
         val activeId = userDao.getUserData()!!.userId
         //Получим сам авторизированный аккаунт
         val activeAccount = accountDao.getById(activeId!!)
         nameLogin.text = activeAccount!!.login
         desc.text = activeAccount.accountDesc
+        if(activeAccount.pathAvatar == null){
+            avatar.setImageResource(R.drawable.photo_ots)
+        }
 
+    }
+
+    private fun drawRecycler(){
+        listRecycler = myFragment!!.findViewById(R.id.userWorksRecycler)
+        val layoutManager = LinearLayoutManager(context)
+        listRecycler.layoutManager = layoutManager
+        val adapter = DataAdapter(context, 2)
+        listRecycler.adapter = adapter
     }
 
 

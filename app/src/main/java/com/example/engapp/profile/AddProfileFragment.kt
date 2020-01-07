@@ -55,7 +55,7 @@ class AddProfileFragment : Fragment(), View.OnClickListener {
             val accountDao = db.accountDao()
             val account = DataAccount(loginInput.text.toString(), emailInput.text.toString(),
                 passwordInput.text.toString(),
-                "Add Description", "", "")
+                "Add Description", null, "", "")
             if (accountDao != null && profileInDb(accountDao, account)) {
                 accountDao.insertAccount(account)
             }else{println("Error")}
