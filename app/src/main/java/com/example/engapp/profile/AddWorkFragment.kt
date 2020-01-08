@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.navigation.Navigation
 import com.example.engapp.App
 import com.example.engapp.ListId
@@ -83,6 +84,11 @@ class AddWorkFragment : Fragment(), View.OnClickListener {
                             )
                         }!!
                     navController.navigate(R.id.userFragment)
+                }else{
+                    val toast = Toast.makeText(context,
+                        "Error! Input lines are empty or take up very few characters",
+                        Toast.LENGTH_SHORT)
+                    toast.show()
                 }
             }
         }
@@ -90,9 +96,10 @@ class AddWorkFragment : Fragment(), View.OnClickListener {
 
 
     private fun notEmpty(): Boolean {
-        return title.text.toString() != "" &&
-                contentDesc.text.toString() != ""
-                && contentEn.text.toString() != "" && contentRu.text.toString() != ""
+        return title.text.toString() != "" && title.text.length > 10 &&
+                contentDesc.text.toString() != "" && contentDesc.text.length > 30
+                && contentEn.text.toString() != "" && contentEn.text.length > 50
+                && contentRu.text.toString() != "" && contentEn.text.length > 50
     }
 
     private fun init(){

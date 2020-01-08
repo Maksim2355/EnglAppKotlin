@@ -2,11 +2,13 @@ package com.example.engapp.profile
 
 
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -56,10 +58,15 @@ class AddProfileFragment : Fragment(), View.OnClickListener {
             val account = DataAccount(loginInput.text.toString(), emailInput.text.toString(),
                 passwordInput.text.toString(),
                 "Add Description", null, "", "")
-            if (accountDao != null && profileInDb(accountDao, account)) {
+            if (profileInDb(accountDao!!, account)) {
                 accountDao.insertAccount(account)
-            }else{println("Error")}
+
             navController.popBackStack()
+        } }else{
+            val toast = Toast.makeText(context,
+                "Input lines are empty or take up very few characters",
+                Toast.LENGTH_SHORT)
+            toast.show()
         }
 
     }
@@ -74,9 +81,9 @@ class AddProfileFragment : Fragment(), View.OnClickListener {
 
     //Проверяем, пустое ли поле для ввода
     private fun emptyIn(): Boolean{
-        return (loginInput.text.toString()!= "" &&
-                emailInput.text.toString()!= ""
-                && passwordInput.text.toString()!= "")
+        return (loginInput.text.toString() != "" && loginInput.text.length > 4 &&
+                emailInput.text.toString()!= "" && emailInput.text.length > 8
+                && passwordInput.text.toString()!= "" && passwordInput.text.length > 6)
     }
     //Проверяем, есть ли в базе данных логин, который вводит пользователь
     private fun profileInDb(acDao: DataAccountDao, ac:DataAccount) : Boolean{

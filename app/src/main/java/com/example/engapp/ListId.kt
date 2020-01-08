@@ -33,4 +33,7 @@ class ListId(var data: String) {
     fun getList(): List<Int> {
         return listMu.toList()
     }
+    fun elemInList(item: Int) : Boolean {
+        return listMu.contains(item)
+    }
 }

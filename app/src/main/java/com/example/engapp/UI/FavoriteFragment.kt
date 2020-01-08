@@ -2,10 +2,10 @@ package com.example.engapp.UI
 
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.engapp.App
@@ -13,6 +13,7 @@ import com.example.engapp.DataAdapter
 import com.example.engapp.ListId
 import com.example.engapp.R
 import com.example.engapp.database.*
+
 
 /**
  * A simple [Fragment] subclass.
@@ -22,6 +23,7 @@ class FavoriteFragment : Fragment() {
     private val worksDao: DataWorksDao = db!!.worksDao()!!
     private val accountDao: DataAccountDao = db!!.accountDao()!!
     private val userDao: UserDataDao = db!!.userDao()!!
+    private var adapter: DataAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,6 +50,13 @@ class FavoriteFragment : Fragment() {
             listRecycler.adapter = adapter
         }
         return myFragment
+    }
+
+    override fun onResume() {
+        if (adapter != null){
+            adapter!!.notifyDataSetChanged()
+        }
+        super.onResume()
     }
 
 

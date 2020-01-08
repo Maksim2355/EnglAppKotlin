@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
             Navigation.findNavController(this, R.id.nav_host_fragment)
         val db: AppDatabase = App.instance!!.database!!
         val userDao = db.userDao()
+        bottomNavigation.selectedItemId = R.id.works
 
         bottomNavigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {

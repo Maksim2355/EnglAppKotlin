@@ -10,7 +10,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
-import com.example.engapp.database.*
+import com.example.engapp.database.AppDatabase
+import com.example.engapp.database.ItemList
 
 //Тут еще должны быть ебаные обработчики
 //Передаем из фрагмента в адаптер Recycler
@@ -27,9 +28,6 @@ class DataAdapter(private val idRecycler: Int, listWorks: List<ItemList?>?) :
     private var size =  listWorks!!.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-
-
-
         val context = parent.context
         val inflater = LayoutInflater.from(context)
         val view = inflater.inflate(R.layout.item_work, parent, false)
@@ -47,8 +45,10 @@ class DataAdapter(private val idRecycler: Int, listWorks: List<ItemList?>?) :
 
     }
 
+
+
     class ViewHolder internal constructor(view: View, private val idRecycler: Int,
-                                          private val listWorks: List<ItemList?>?,
+                                          private var listWorks: List<ItemList?>?,
                                           private val context: Context) :
         RecyclerView.ViewHolder(view), View.OnClickListener {
         private var imageView: ImageView = view.findViewById<View>(R.id.imageWorks) as ImageView
@@ -74,6 +74,27 @@ class DataAdapter(private val idRecycler: Int, listWorks: List<ItemList?>?) :
             } else {
                 println("")//Тут вставим фото
             }
+            when(idRecycler){
+                0-> {
+                    val idWork = itemWorks.id
+                    val favoriteListId =
+                        ListId(accountDao.getById(userId!!)!!.idFavorites)
+                    if (favoriteListId.elemInList(idWork)) {
+                    delAddButton.setBackgroundResource(R.drawable.del_add_favorite) }
+                    else{
+                        delAddButton.setBackgroundResource(R.drawable.add_in_favorite)
+                    }
+                }
+                1-> {
+
+                    /*Проверяем, есть ли элемент в избранных
+                      работах и если есть, то подсвечиваем
+                     */
+
+                        delAddButton.setBackgroundResource(R.drawable.del_add_favorite)
+                     }
+                2-> {delAddButton.setBackgroundResource(R.drawable.ic_clear_black_24dp) }
+            }
             titleView.text = itemWorks.title
             contentDescView.text = itemWorks.contentDesc
         }
@@ -81,6 +102,8 @@ class DataAdapter(private val idRecycler: Int, listWorks: List<ItemList?>?) :
         override fun onClick(v: View?) {
             val position: Int = adapterPosition
             val workId = listWorks!![position]!!.id
+            val navController =
+                Navigation.findNavController(context as Activity,R.id.nav_host_fragment)
             when (v!!.id) {
                 R.id.butDelAdd -> {
                     if (userId != null) {
@@ -88,12 +111,15 @@ class DataAdapter(private val idRecycler: Int, listWorks: List<ItemList?>?) :
                         when (idRecycler) {
                             //Реализация добавления в раздел favorite
                             0 -> {
-                                //Нашли данные о нашем аккаунте
-                                //Вытянули id работы, по которой был сделан клик
                                 val addFavorite = ListId(acRed!!.idFavorites)
-                                addFavorite.addItem(workId)
-                                acRed.idFavorites = addFavorite.getList().toString()
-                                accountDao.update(acRed)
+                                if (!addFavorite.elemInList(workId)) {
+                                    //Нашли данные о нашем аккаунте
+                                    //Вытянули id работы, по которой был сделан клик
+                                    addFavorite.addItem(workId)
+                                    acRed.idFavorites = addFavorite.getList().toString()
+                                    accountDao.update(acRed)
+                                    navController.navigate(R.id.worksFragment)
+                                }
                             }
                             //Реализация удаления из Favorite
                             1 -> {
@@ -101,6 +127,7 @@ class DataAdapter(private val idRecycler: Int, listWorks: List<ItemList?>?) :
                                 delFavorite.delItem(workId)
                                 acRed.idFavorites = delFavorite.getList().toString()
                                 accountDao.update(acRed)
+                                navController.navigate(R.id.favoriteFragment)
                             }
                             //Реализация удаления из всей БД. Удаляем из списка его работ и всей бд
                             2 -> {
@@ -114,13 +141,12 @@ class DataAdapter(private val idRecycler: Int, listWorks: List<ItemList?>?) :
                                 acRed.idWorks = delWorks.getList().toString()
                                 worksDao.deleteWorks(del)
                                 accountDao.update(acRed)
+                                navController.navigate(R.id.userFragment)
                             }
                         }
                     }
                 }
                 else -> {
-                    val navController =
-                        Navigation.findNavController(context as Activity,R.id.nav_host_fragment)
                     println(workId)
                     val worksAdd = userDao.getUserData()!!
                     worksAdd.openWorks = workId
