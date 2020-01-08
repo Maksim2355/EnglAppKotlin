@@ -9,4 +9,5 @@ class UserData {
     @PrimaryKey(autoGenerate = true)
     var id: Int? = null
     var userId: Int? = null
+    var openWorks: Int? = null
 }

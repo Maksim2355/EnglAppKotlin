@@ -9,13 +9,15 @@
     <string name="registration">Account registration</string>
     <string name="regEnd">Register profile</string>
     <string name="regEmail">Enter your email</string>
-    <string name="butTranslate">Translate</string>
+    <string name="butAddImage">Add image to work (optional)</string>
     <string name="butAddContent">Add content</string>
     <string name="signOut">Sign out</string>
-
+    <string name="content_desc">Add a short description of the work</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="add_audio_to_work">Add audio to work</string>
     <string name="add_title">Add title</string>
     <string name="add_work_in_english">Add work (in English)</string>
+    <string name="add_work_in_russian">Add a translation of this work</string>
+    <string name="add_work">Add work</string>
+
 </resources>

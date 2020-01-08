@@ -1,5 +1,6 @@
 package com.example.engapp
 
+import android.app.Activity
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.engapp.database.*
 
@@ -32,7 +34,7 @@ class DataAdapter(private val idRecycler: Int, listWorks: List<ItemList?>?) :
         val inflater = LayoutInflater.from(context)
         val view = inflater.inflate(R.layout.item_work, parent, false)
 
-        return ViewHolder(view, idRecycler, listWoks)
+        return ViewHolder(view, idRecycler, listWoks, context)
     }
 
     override fun getItemCount(): Int {
@@ -46,11 +48,13 @@ class DataAdapter(private val idRecycler: Int, listWorks: List<ItemList?>?) :
     }
 
     class ViewHolder internal constructor(view: View, private val idRecycler: Int,
-                                          private val listWorks: List<ItemList?>? ) :
+                                          private val listWorks: List<ItemList?>?,
+                                          private val context: Context) :
         RecyclerView.ViewHolder(view), View.OnClickListener {
         private var imageView: ImageView = view.findViewById<View>(R.id.imageWorks) as ImageView
         private var titleView: TextView = view.findViewById<View>(R.id.titleWorks) as TextView
-        private var contentDescView: TextView = view.findViewById<View>(R.id.contentDescWorks) as TextView
+        private var contentDescView: TextView =
+            view.findViewById<View>(R.id.contentDescWorks) as TextView
         private var delAddButton: Button = view.findViewById(R.id.butDelAdd) as Button
         private val db: AppDatabase? = App.instance!!.database!!
         private val accountDao = db!!.accountDao()!!
@@ -67,18 +71,19 @@ class DataAdapter(private val idRecycler: Int, listWorks: List<ItemList?>?) :
         fun bind(itemWorks: ItemList) {
             if (itemWorks.pathImage == null) {
                 imageView.setImageResource(R.drawable.photo_ots)
-            } else { println("")//Тут вставим фото
-                    }
+            } else {
+                println("")//Тут вставим фото
+            }
             titleView.text = itemWorks.title
             contentDescView.text = itemWorks.contentDesc
         }
 
         override fun onClick(v: View?) {
-            when(v!!.id){
-                R.id.butDelAdd-> {
-                    if(userId != null) {
-                        val position: Int = adapterPosition
-                        val workId = listWorks!![position]!!.id
+            val position: Int = adapterPosition
+            val workId = listWorks!![position]!!.id
+            when (v!!.id) {
+                R.id.butDelAdd -> {
+                    if (userId != null) {
                         val acRed = accountDao.getById(userId)
                         when (idRecycler) {
                             //Реализация добавления в раздел favorite
@@ -113,10 +118,17 @@ class DataAdapter(private val idRecycler: Int, listWorks: List<ItemList?>?) :
                         }
                     }
                 }
-                R.layout.item_work-> {
+                else -> {
+                    val navController =
+                        Navigation.findNavController(context as Activity,R.id.nav_host_fragment)
+                    println(workId)
+                    val worksAdd = userDao.getUserData()!!
+                    worksAdd.openWorks = workId
+                    userDao.update(worksAdd)
+                    println(userDao.getUserData()!!.openWorks)
+                    navController.navigate(R.id.elementWorksFragment)
 
                 }
-
             }
         }
     }

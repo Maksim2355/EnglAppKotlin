@@ -18,7 +18,6 @@ class App : Application() {
             applicationContext,
             AppDatabase::class.java, "databaseEn"
         ).allowMainThreadQueries().fallbackToDestructiveMigration().build()
-
         val userDao = database!!.userDao()
         if (userDao?.getUserData() == null){
             //Если нет ячейки активного пользователя, то добавляем
