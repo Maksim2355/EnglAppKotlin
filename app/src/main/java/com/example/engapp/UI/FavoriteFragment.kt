@@ -34,7 +34,7 @@ class FavoriteFragment : Fragment() {
         val myFragment: View =
             inflater.inflate(R.layout.fragment_favorite, container, false)
         activity!!.title = "Favorite"
-        if (App.instance!!.database!!.userDao()!!.getUserData()?.userId != null){
+        if (userDao.getUserData()!!.userId != null){
             val listRecycler =
                 myFragment.findViewById<RecyclerView>(R.id.favoriteWokrsRecycler)
             val layoutManager = LinearLayoutManager(context)

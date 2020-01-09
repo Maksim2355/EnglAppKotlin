@@ -31,7 +31,7 @@ class ElementWorksFragment : Fragment() {
         val thisWorks = worksDao.getById(userDao.getUserData()!!.openWorks!!)
         title = myFragment.findViewById(R.id.titleAdd)
         contentEn = myFragment.findViewById(R.id.contentEn)
-        contentRu = myFragment.findViewById(R.id.contentEnAdd)
+        contentRu = myFragment.findViewById(R.id.contentRu)
         title.text = thisWorks!!.title
         contentEn.text = thisWorks.contentEn
         contentRu.text = thisWorks.contentRu

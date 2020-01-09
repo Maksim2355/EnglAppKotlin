@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
@@ -78,12 +79,16 @@ class DataAdapter(private val idRecycler: Int, listWorks: List<ItemList?>?) :
             when(idRecycler){
                 0-> {
                     val idWork = itemWorks.id
-                    val favoriteListId =
-                        ListId(accountDao.getById(userId!!)!!.idFavorites)
-                    if (favoriteListId.elemInList(idWork)) {
-                        delAddButton.setBackgroundResource(R.drawable.del_add_favorite) }
-                    else{
-                        delAddButton.setBackgroundResource(R.drawable.add_in_favorite)
+                    if (userId != null) {
+                        val favoriteListId =
+                            ListId(accountDao.getById(userId)!!.idFavorites)
+                        if (favoriteListId.elemInList(idWork)) {
+                            delAddButton.setBackgroundResource(R.drawable.del_add_favorite)
+                        } else {
+                            delAddButton.setBackgroundResource(R.drawable.add_in_favorite)
+                        }
+                    }else{
+                        delAddButton.visibility = GONE
                     }
                 }
                 1-> {
@@ -104,46 +109,48 @@ class DataAdapter(private val idRecycler: Int, listWorks: List<ItemList?>?) :
                 R.id.butDelAdd -> {
                     if (userId != null) {
                         val acRed = accountDao.getById(userId)
-                        when (idRecycler) {
-                            //Реализация добавления в раздел favorite
-                            0 -> {
-                                val addFavorite = ListId(acRed!!.idFavorites)
-                                //Если этого элемента нет в favorite
-                                if (!addFavorite.elemInList(workId)) {
-                                    //Нашли данные о нашем аккаунте
-                                    //Вытянули id работы, по которой был сделан клик
-                                    addFavorite.addItem(workId)
-                                    acRed.idFavorites = addFavorite.getList().toString()
-                                    accountDao.update(acRed)
-                                }else{
-                                    val delFavorite = ListId(acRed.idFavorites)
+                        if(userDao.getUserData()!!.userId != null) {
+                            when (idRecycler) {
+                                //Реализация добавления в раздел favorite
+                                0 -> {
+                                    val addFavorite = ListId(acRed!!.idFavorites)
+                                    //Если этого элемента нет в favorite
+                                    if (!addFavorite.elemInList(workId)) {
+                                        //Нашли данные о нашем аккаунте
+                                        //Вытянули id работы, по которой был сделан клик
+                                        addFavorite.addItem(workId)
+                                        acRed.idFavorites = addFavorite.getList().toString()
+                                        accountDao.update(acRed)
+                                    } else {
+                                        val delFavorite = ListId(acRed.idFavorites)
+                                        delFavorite.delItem(workId)
+                                        acRed.idFavorites = delFavorite.getList().toString()
+                                        accountDao.update(acRed)
+                                    }
+                                    navController.navigate(R.id.worksFragment)
+                                }
+                                //Реализация удаления из Favorite
+                                1 -> {
+                                    val delFavorite = ListId(acRed!!.idFavorites)
                                     delFavorite.delItem(workId)
                                     acRed.idFavorites = delFavorite.getList().toString()
                                     accountDao.update(acRed)
+                                    navController.navigate(R.id.favoriteFragment)
                                 }
-                                navController.navigate(R.id.worksFragment)
-                            }
-                            //Реализация удаления из Favorite
-                            1 -> {
-                                val delFavorite = ListId(acRed!!.idFavorites)
-                                delFavorite.delItem(workId)
-                                acRed.idFavorites = delFavorite.getList().toString()
-                                accountDao.update(acRed)
-                                navController.navigate(R.id.favoriteFragment)
-                            }
-                            //Реализация удаления из всей БД. Удаляем из списка его работ и всей бд
-                            2 -> {
-                                //Получаем наш аккаунт
-                                val delWorks = ListId(acRed!!.idWorks)
-                                val delFavor = ListId(acRed.idFavorites)
-                                delFavor.delItem(workId)
-                                delWorks.delItem(workId)
-                                val del = worksDao!!.getById(workId)
-                                acRed.idFavorites = delFavor.getList().toString()
-                                acRed.idWorks = delWorks.getList().toString()
-                                worksDao.deleteWorks(del)
-                                accountDao.update(acRed)
-                                navController.navigate(R.id.userFragment)
+                                //Реализация удаления из всей БД. Удаляем из списка его работ и всей бд
+                                2 -> {
+                                    //Получаем наш аккаунт
+                                    val delWorks = ListId(acRed!!.idWorks)
+                                    val delFavor = ListId(acRed.idFavorites)
+                                    delFavor.delItem(workId)
+                                    delWorks.delItem(workId)
+                                    val del = worksDao!!.getById(workId)
+                                    acRed.idFavorites = delFavor.getList().toString()
+                                    acRed.idWorks = delWorks.getList().toString()
+                                    worksDao.deleteWorks(del)
+                                    accountDao.update(acRed)
+                                    navController.navigate(R.id.userFragment)
+                                }
                             }
                         }
                     }
