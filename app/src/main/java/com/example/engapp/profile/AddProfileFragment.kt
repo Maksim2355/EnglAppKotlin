@@ -40,7 +40,8 @@ class AddProfileFragment : Fragment(), View.OnClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        myFragment =
+        activity!!.title = "Add Profile"
+            myFragment =
             inflater.inflate(R.layout.fragment_add_profile, container, false)
         navController =
             activity?.let { Navigation.findNavController(it, R.id.nav_host_fragment) }!!
@@ -60,7 +61,6 @@ class AddProfileFragment : Fragment(), View.OnClickListener {
                 "Add Description", null, "", "")
             if (profileInDb(accountDao!!, account)) {
                 accountDao.insertAccount(account)
-
             navController.popBackStack()
         } }else{
             val toast = Toast.makeText(context,

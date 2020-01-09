@@ -4,14 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="16dp">
+    android:background="#2196f3"
+    android:padding="15dp"
+    android:layout_margin="10dp"
+    >
 
     <ImageView
         android:id="@+id/imageWorks"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginEnd="3dp"
+        android:layout_marginRight="3dp"
         android:layout_weight="1" />
 
     <LinearLayout
@@ -25,12 +28,21 @@
         <TextView
             android:id="@+id/titleWorks"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textColor="#ffff"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#7b7b"
+             />
         <TextView
             android:id="@+id/contentDescWorks"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#ffff"
+            />
 
     </LinearLayout>
 
@@ -38,7 +50,8 @@
         android:id="@+id/butDelAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@null"
-        android:layout_weight="4" />
+        android:layout_gravity="center_vertical"
+        android:layout_weight="3"
+        android:background="@null" />
 
 </LinearLayout>

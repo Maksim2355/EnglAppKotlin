@@ -10,46 +10,59 @@
         android:id="@+id/loginReg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
-        android:ems="10"
+        android:background="@drawable/edittextstyle"
+        android:ems="13"
         android:hint="@string/loginPlease"
         android:inputType="textPersonName"
+        android:padding="10dp"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.25" />
 
     <EditText
         android:id="@+id/emailReg"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:ems="10"
+        android:background="@drawable/edittextstyle"
         android:hint="@string/regEmail"
         android:inputType="textEmailAddress"
+        android:padding="10dp"
+        android:textSize="20sp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="@+id/loginReg"
         app:layout_constraintStart_toStartOf="@+id/loginReg"
         app:layout_constraintTop_toBottomOf="@+id/loginReg" />
 
     <EditText
         android:id="@+id/passwordReg"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:ems="10"
+        android:background="@drawable/edittextstyle"
         android:hint="@string/passwordPlease"
         android:inputType="textPassword"
+        android:padding="10dp"
+        android:textSize="20sp"
+        android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="@+id/emailReg"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/emailReg"
         app:layout_constraintTop_toBottomOf="@+id/emailReg" />
 
     <Button
         android:id="@+id/regbutton"
+        style="@android:style/Widget.DeviceDefault.Light.Button.Small"
         android:layout_width="224dp"
         android:layout_height="55dp"
+        android:padding="10dp"
         android:text="@string/regEnd"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="20sp"
+        android:textColor="#FFFF"
+        android:background="#2196f3"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toEndOf="@+id/passwordReg"
+        app:layout_constraintStart_toStartOf="@+id/passwordReg"
         app:layout_constraintTop_toBottomOf="@+id/passwordReg"
-        app:layout_constraintVertical_bias="0.206" />
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

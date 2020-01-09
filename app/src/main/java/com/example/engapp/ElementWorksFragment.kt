@@ -35,6 +35,7 @@ class ElementWorksFragment : Fragment() {
         title.text = thisWorks!!.title
         contentEn.text = thisWorks.contentEn
         contentRu.text = thisWorks.contentRu
+        activity!!.title = thisWorks.title
         // Inflate the layout for this fragment
         return myFragment
     }

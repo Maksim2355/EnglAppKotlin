@@ -1,10 +1,12 @@
 package com.example.engapp.UI
 
 
+import android.app.ActionBar
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -31,8 +33,10 @@ class FavoriteFragment : Fragment() {
     ): View? {
         val myFragment: View =
             inflater.inflate(R.layout.fragment_favorite, container, false)
+        activity!!.title = "Favorite"
         if (App.instance!!.database!!.userDao()!!.getUserData()?.userId != null){
-            val listRecycler = myFragment.findViewById<RecyclerView>(R.id.favoriteWokrsRecycler)
+            val listRecycler =
+                myFragment.findViewById<RecyclerView>(R.id.favoriteWokrsRecycler)
             val layoutManager = LinearLayoutManager(context)
             listRecycler.layoutManager = layoutManager
 
@@ -48,7 +52,7 @@ class FavoriteFragment : Fragment() {
             val listWoks = mutList.toList()
             val adapter = DataAdapter(1, listWoks)
             listRecycler.adapter = adapter
-        }
+    }
         return myFragment
     }
 

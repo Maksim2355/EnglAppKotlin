@@ -27,6 +27,7 @@ class WorksFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        activity!!.title = "All Works"
         val myFragment: View =
             inflater.inflate(R.layout.fragment_works, container, false)
 

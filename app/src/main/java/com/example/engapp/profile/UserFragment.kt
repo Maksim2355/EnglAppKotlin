@@ -38,6 +38,7 @@ class UserFragment : Fragment(), View.OnClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        activity!!.title = "Your profile"
         //Делаем преобразование в onCreate
         myFragment =
             inflater.inflate(R.layout.fragment_user, container, false)

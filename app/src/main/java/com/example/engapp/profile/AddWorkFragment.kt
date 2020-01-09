@@ -38,7 +38,8 @@ class AddWorkFragment : Fragment(), View.OnClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        myFragment =
+        activity!!.title = "Add work"
+            myFragment =
             inflater.inflate(R.layout.fragment_add_work, container, false)
         init()
         // Inflate the layout for this fragment

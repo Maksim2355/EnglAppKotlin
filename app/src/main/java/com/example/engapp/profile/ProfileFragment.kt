@@ -12,6 +12,8 @@ import androidx.navigation.Navigation
 import com.example.engapp.App
 
 import android.widget.EditText
+import android.widget.TextView
+import android.widget.Toast
 import com.example.engapp.R
 import com.example.engapp.database.*
 
@@ -33,6 +35,7 @@ class ProfileFragment : Fragment(), View.OnClickListener{
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        activity!!.title = "Account Login"
         myFragment =
             inflater.inflate(R.layout.fragment_profile, container, false)
         navController =
@@ -52,25 +55,32 @@ class ProfileFragment : Fragment(), View.OnClickListener{
             R.id.loginBut-> {
                 val login: EditText = myFragment.findViewById(R.id.loginIn)
                 val password = myFragment.findViewById<EditText>(R.id.passwordIn)
-
-                val db:AppDatabase = App.instance!!.database!!
-                val userDao: UserDataDao = db.userDao()!!
-                val accountDao: DataAccountDao = db.accountDao()!!
-                //Получаем информацию об аккаунтах
-                val listAccount: List<AccountInData> = accountDao.getLoginInfo()!!
-                //Перебираем каждое значение, если оно подходит, то выполняем авторизацию
-                for(item in listAccount){
-                    if(login.text.toString() == item.login &&
-                            password.text.toString() == item.password){
-                        val user = UserData()
-                        user.id = userDao.getUserData()!!.id
-                        user.userId = item.id
-                        userDao.update(user)
-                        navController.navigate(R.id.userFragment)
+                if (notEmpty(login.text.toString(), password.text.toString())) {
+                    val db: AppDatabase = App.instance!!.database!!
+                    val userDao: UserDataDao = db.userDao()!!
+                    val accountDao: DataAccountDao = db.accountDao()!!
+                    //Получаем информацию об аккаунтах
+                    val listAccount: List<AccountInData> = accountDao.getLoginInfo()!!
+                    //Перебираем каждое значение, если оно подходит, то выполняем авторизацию
+                    for (item in listAccount) {
+                        if (login.text.toString() == item.login &&
+                            password.text.toString() == item.password
+                        ) {
+                            val user = UserData()
+                            user.id = userDao.getUserData()!!.id
+                            user.userId = item.id
+                            userDao.update(user)
+                            navController.navigate(R.id.userFragment)
+                        }
                     }
+                    login.text = null
+                    password.text = null
+                }else{
+                    val toast = Toast.makeText(context,
+                        "Invalid username or password, enter again",
+                        Toast.LENGTH_SHORT)
+                    toast.show()
                 }
-                login.text = null
-                password.text = null
             }
 
         }
@@ -83,6 +93,11 @@ class ProfileFragment : Fragment(), View.OnClickListener{
             myFragment.findViewById(R.id.loginBut)
         regBut.setOnClickListener(this)
         loginBut.setOnClickListener(this)
+    }
+
+    private fun notEmpty(login: String, password: String): Boolean {
+        return (login != "") && (login.length > 4) &&
+                (password != "") && (login.length > 4)
     }
 
 

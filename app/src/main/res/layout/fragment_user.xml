@@ -31,6 +31,7 @@
             <TextView
                 android:id="@+id/loginUser"
                 android:layout_width="wrap_content"
+                android:textSize="20sp"
                 android:layout_height="wrap_content" />
 
             <Button
@@ -49,13 +50,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/butAddContent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        android:textColor="#FFFF"
+        android:background="#2196f3"/>
 
     <Button
         android:id="@+id/SignOutBut"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/signOut"
+        android:textColor="#FFFF"
+        android:background="#2196f3"
+        android:layout_marginTop="10dp"
  />
 
     <androidx.recyclerview.widget.RecyclerView
