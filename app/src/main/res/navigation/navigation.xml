@@ -52,6 +52,9 @@
         <action
             android:id="@+id/action_userFragment_to_addWorkFragment"
             app:destination="@id/addWorkFragment" />
+        <action
+            android:id="@+id/action_userFragment_to_elementWorksFragment"
+            app:destination="@id/elementWorksFragment" />
     </fragment>
     <fragment
         android:id="@+id/addWorkFragment"

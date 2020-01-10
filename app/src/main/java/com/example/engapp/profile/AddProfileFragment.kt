@@ -62,7 +62,13 @@ class AddProfileFragment : Fragment(), View.OnClickListener {
             if (profileInDb(accountDao!!, account)) {
                 accountDao.insertAccount(account)
             navController.popBackStack()
-        } }else{
+        }else{
+                val toast = Toast.makeText(context,
+                    "User is already registered",
+                    Toast.LENGTH_SHORT)
+                toast.show()
+                    }
+        }else{
             val toast = Toast.makeText(context,
                 "Input lines are empty or take up very few characters",
                 Toast.LENGTH_SHORT)

@@ -81,7 +81,7 @@ class UserFragment : Fragment(), View.OnClickListener {
         //Получаем элементы для разрисовки профиля
         val nameLogin = myFragment!!.findViewById<TextView>(R.id.loginUser)
         val desc = myFragment!!.findViewById<Button>(R.id.accountDescription)
-        val avatar = myFragment!!.findViewById<ImageButton>(R.id.iconProfile)
+        val avatar = myFragment!!.findViewById<ImageView>(R.id.iconProfile)
         //Получим данного из авторизированного аккаунта
         val activeId = userDao.getUserData()!!.userId
         //Получим сам авторизированный аккаунт
@@ -89,7 +89,7 @@ class UserFragment : Fragment(), View.OnClickListener {
         nameLogin.text = activeAccount!!.login
         desc.text = activeAccount.accountDesc
         if(activeAccount.pathAvatar == null){
-            avatar.setImageResource(R.drawable.photo_ots)
+            avatar.setImageResource(R.drawable.avatar_not)
         }
 
     }

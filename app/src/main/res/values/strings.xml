@@ -19,5 +19,9 @@
     <string name="add_work_in_english">Add work (in English)</string>
     <string name="add_work_in_russian">Add a translation of this work</string>
     <string name="add_work">Add work</string>
+    <string name="regis_nav_favorite">You are not logged in. Sign in to see your favorites</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
