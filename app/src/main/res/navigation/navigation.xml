@@ -60,5 +60,14 @@
         android:id="@+id/addWorkFragment"
         android:name="com.example.engapp.profile.AddWorkFragment"
         android:label="fragment_add_work"
-        tools:layout="@layout/fragment_add_work" />
+        tools:layout="@layout/fragment_add_work" >
+        <action
+            android:id="@+id/action_addWorkFragment_to_addFileFragment"
+            app:destination="@id/addFileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addFileFragment"
+        android:name="com.example.engapp.addfile.AddFileFragment"
+        android:label="fragment_add_file"
+        tools:layout="@layout/fragment_add_file" />
 </navigation>

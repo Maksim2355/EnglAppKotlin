@@ -47,16 +47,25 @@ class AddWorkFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
+        val navController =
+            activity?.let {
+                Navigation.findNavController(
+                    it,
+                    R.id.nav_host_fragment
+                )
+            }!!
         when(v!!.id){
             //Нажимая данную кнопку, мы заставляем пользователя дать аудио/картинку
             R.id.addAudioPath-> {
-
+                //Изменяем состояние бд
+                navController.navigate(R.id.addFileFragment)
             }
             /*Нажимая данную кнопку, мы сохраняем значения в переменные и вставляем в объект
             который позже заполняем до конца и вставляем в базу данных
              */
             R.id.addImagePath-> {
-
+                //изменяем состояние бд
+                navController.navigate(R.id.addFileFragment)
             }
             R.id.nextAdd-> {
                 if (notEmpty()){
@@ -77,13 +86,7 @@ class AddWorkFragment : Fragment(), View.OnClickListener {
                     listUser.addItem(idWork!!)
                     account.idWorks = listUser.getList().toString()
                     accountDao.update(account)
-                    val navController =
-                        activity?.let {
-                            Navigation.findNavController(
-                                it,
-                                R.id.nav_host_fragment
-                            )
-                        }!!
+
                     navController.navigate(R.id.userFragment)
                 }else{
                     val toast = Toast.makeText(context,
