@@ -1,7 +1,5 @@
 package com.example.engapp
 
-import java.util.*
-
 
 class ListId(var data: String) {
     private var listMu = mutableListOf<Int>()

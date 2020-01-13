@@ -11,7 +11,7 @@ import com.example.engapp.R
 /**
  * A simple [Fragment] subclass.
  */
-class addFileFragment : Fragment() {
+class AddFileFragment : Fragment() {
     private lateinit var myFragment: View
 
     override fun onCreateView(

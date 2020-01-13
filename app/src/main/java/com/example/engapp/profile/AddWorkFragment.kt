@@ -114,7 +114,7 @@ class AddWorkFragment : Fragment(), View.OnClickListener {
         contentDesc = myFragment.findViewById(R.id.contentDesAdd)
         contentEn = myFragment.findViewById(R.id.contentRuAdd)
         contentRu = myFragment.findViewById(R.id.contentEnAdd)
-        addImagePath.setOnClickListener(this)
+        addAudioPath.setOnClickListener(this)
         addImagePath.setOnClickListener(this)
         nextAdd.setOnClickListener(this)
     }

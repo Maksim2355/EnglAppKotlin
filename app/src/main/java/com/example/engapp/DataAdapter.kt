@@ -21,8 +21,10 @@ import com.example.engapp.database.ItemList
 1- Делаем список для раздела Favorite
 2- Делаем список для раздела Profile
  */
+
 class DataAdapter(private val idRecycler: Int, listWorks: List<ItemList?>?) :
     RecyclerView.Adapter<DataAdapter.ViewHolder>() {
+
     //Получаем экземпляры
     //Из этого листа вытягиваем id с помощью позиции
     private val listWoks = listWorks
@@ -48,10 +50,12 @@ class DataAdapter(private val idRecycler: Int, listWorks: List<ItemList?>?) :
 
 
 
-    class ViewHolder internal constructor(view: View, private val idRecycler: Int,
+    class ViewHolder internal constructor(view: View,
+                                          private val idRecycler: Int,
                                           private var listWorks: List<ItemList?>?,
                                           private val context: Context) :
         RecyclerView.ViewHolder(view), View.OnClickListener {
+
         private var imageView: ImageView = view.findViewById<View>(R.id.imageWorks) as ImageView
         private var titleView: TextView = view.findViewById<View>(R.id.titleWorks) as TextView
         private var contentDescView: TextView =
@@ -68,7 +72,6 @@ class DataAdapter(private val idRecycler: Int, listWorks: List<ItemList?>?) :
             view.setOnClickListener(this)
             view.setBackgroundResource(R.drawable.border_radius)
         }
-
 
         fun bind(itemWorks: ItemList) {
             if (itemWorks.pathImage == null) {
