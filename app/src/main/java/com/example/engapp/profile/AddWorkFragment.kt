@@ -13,6 +13,7 @@ import androidx.navigation.Navigation
 import com.example.engapp.App
 import com.example.engapp.ListId
 import com.example.engapp.R
+import com.example.engapp.addfile.AddFileFragment
 import com.example.engapp.database.*
 
 
@@ -54,9 +55,16 @@ class AddWorkFragment : Fragment(), View.OnClickListener {
                     R.id.nav_host_fragment
                 )
             }!!
+        val work  = DataWorks()
         when(v!!.id){
             //Нажимая данную кнопку, мы заставляем пользователя дать аудио/картинку
             R.id.addAudioPath-> {
+                val audio = userDao.getUserData()
+                audio?.addFile = 0
+                userDao.update(audio)
+                val fragment = AddFileFragment()
+                val bundle = Bundle()
+                bundle.putInt("Folder", 0)
                 //Изменяем состояние бд
                 navController.navigate(R.id.addFileFragment)
             }
@@ -64,12 +72,17 @@ class AddWorkFragment : Fragment(), View.OnClickListener {
             который позже заполняем до конца и вставляем в базу данных
              */
             R.id.addImagePath-> {
+                val image = userDao.getUserData()
+                image?.addFile = 1
+                userDao.update(image)
+                val fragment = AddFileFragment()
+                val bundle = Bundle()
+                bundle.putInt("Folder", 1)
                 //изменяем состояние бд
                 navController.navigate(R.id.addFileFragment)
             }
             R.id.nextAdd-> {
                 if (notEmpty()){
-                    val work  = DataWorks()
                     work.title = title.text.toString()
                     work.contentEn = contentEn.text.toString()
                     work.contentDesc = contentDesc.text.toString()

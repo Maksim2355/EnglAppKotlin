@@ -10,4 +10,5 @@ class UserData {
     var id: Int? = null
     var userId: Int? = null
     var openWorks: Int? = null
+    var addFile: Int? = null
 }

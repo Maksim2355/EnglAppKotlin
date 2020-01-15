@@ -2,6 +2,7 @@ package com.example.engapp
 
 import android.app.Activity
 import android.content.Context
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -75,7 +76,8 @@ class DataAdapter(private val idRecycler: Int, listWorks: List<ItemList?>?) :
 
         fun bind(itemWorks: ItemList) {
             if (itemWorks.pathImage == null) {
-                imageView.setImageResource(R.drawable.photo_ots)
+                val uriTest = Uri.parse("file:///storage/emulated/0/imageAppEng/the_road_not_taken.jpg")
+                imageView.setImageURI(uriTest)
             } else {
                 println("")//Тут вставим фото
             }

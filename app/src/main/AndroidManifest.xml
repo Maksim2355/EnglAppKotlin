@@ -3,7 +3,10 @@
     xmlns:dist="http://schemas.android.com/apk/distribution"
     package="com.example.engapp">
     <dist:module dist:instant="true" />
+
+
     <application
+
         android:allowBackup="true"
         android:icon="@drawable/icon_app"
         android:label="@string/app_name"
@@ -21,5 +24,6 @@
             </intent-filter>
         </activity>
     </application>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 </manifest>
