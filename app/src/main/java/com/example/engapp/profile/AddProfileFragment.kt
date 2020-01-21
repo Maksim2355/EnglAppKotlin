@@ -52,29 +52,37 @@ class AddProfileFragment : Fragment(), View.OnClickListener {
 
     //Обработчик событий. Создаем экземпляр БД и добавляем аккаунт, если поле ввода не пусто
     override fun onClick(v: View?) {
-        if (emptyIn())
-        {
-            db = App.instance!!.database!!
-            val accountDao = db.accountDao()
-            val account = DataAccount(loginInput.text.toString(), emailInput.text.toString(),
-                passwordInput.text.toString(),
-                "Add Description", null, "", "")
-            if (profileInDb(accountDao!!, account)) {
-                accountDao.insertAccount(account)
-            navController.popBackStack()
-        }else{
-                val toast = Toast.makeText(context,
-                    "User is already registered",
-                    Toast.LENGTH_SHORT)
-                toast.show()
+        when(v!!.id) {
+            R.id.regbutton -> {
+                if (emptyIn()) {
+                    db = App.instance!!.database!!
+                    val accountDao = db.accountDao()
+                    val account = DataAccount(
+                        loginInput.text.toString(), emailInput.text.toString(),
+                        passwordInput.text.toString(),
+                        "Add Description", null, "", ""
+                    )
+                    if (profileInDb(accountDao!!, account)) {
+                        accountDao.insertAccount(account)
+                        navController.popBackStack()
+                    } else {
+                        val toast = Toast.makeText(
+                            context,
+                            "User is already registered",
+                            Toast.LENGTH_SHORT
+                        )
+                        toast.show()
                     }
-        }else{
-            val toast = Toast.makeText(context,
-                "Input lines are empty or take up very few characters",
-                Toast.LENGTH_SHORT)
-            toast.show()
+                } else {
+                    val toast = Toast.makeText(
+                        context,
+                        "Input lines are empty or take up very few characters",
+                        Toast.LENGTH_SHORT
+                    )
+                    toast.show()
+                }
+            }else -> {navController.popBackStack()}
         }
-
     }
     //Объявляем все переменные и присваем обработчик
     private fun initView(){

@@ -65,4 +65,19 @@
         app:layout_constraintStart_toStartOf="@+id/passwordReg"
         app:layout_constraintTop_toBottomOf="@+id/passwordReg"
         />
+
+    <Button
+        android:id="@+id/returnEsc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="#2196f3"
+        android:padding="5dp"
+        android:text="@string/nav_authorization"
+        android:textColor="#FFFF"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/regbutton"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/regbutton"
+        app:layout_constraintTop_toBottomOf="@+id/regbutton" />
 </androidx.constraintlayout.widget.ConstraintLayout>

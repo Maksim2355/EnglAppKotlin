@@ -28,7 +28,6 @@ import java.util.*
 
 class AddFileFragment : Fragment() {
     private lateinit var myFragment: View
-    private val db: AppDatabase? = App.instance!!.database!!
     private lateinit var listRecycler: RecyclerView
 
     override fun onCreateView(

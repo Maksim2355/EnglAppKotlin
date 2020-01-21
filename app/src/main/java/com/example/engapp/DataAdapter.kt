@@ -76,10 +76,13 @@ class DataAdapter(private val idRecycler: Int, listWorks: List<ItemList?>?) :
 
         fun bind(itemWorks: ItemList) {
             if (itemWorks.pathImage == null) {
-                val uriTest = Uri.parse("file:///storage/emulated/0/imageAppEng/the_road_not_taken.jpg")
-                imageView.setImageURI(uriTest)
+                imageView.setImageResource(R.drawable.photo_ots)
             } else {
-                println("")//Тут вставим фото
+                println("file:///storage/emulated/0" +
+                        itemWorks.pathImage)
+                val uriTest = Uri.parse("file:///storage/emulated/0" +
+                        itemWorks.pathImage)
+                imageView.setImageURI(uriTest)
             }
             when(idRecycler){
                 0-> {

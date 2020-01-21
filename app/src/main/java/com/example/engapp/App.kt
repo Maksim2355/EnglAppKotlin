@@ -16,7 +16,7 @@ class App : Application() {
         instance = this
         database = Room.databaseBuilder(
             applicationContext,
-            AppDatabase::class.java, "databaseEn"
+            AppDatabase::class.java, "DataBaseEngEnd"
         ).allowMainThreadQueries().fallbackToDestructiveMigration().build()
         val userDao = database!!.userDao()
         if (userDao?.getUserData() == null){
