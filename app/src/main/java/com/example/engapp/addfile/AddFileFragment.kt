@@ -14,6 +14,7 @@ import com.example.engapp.App
 import com.example.engapp.DataAdapter
 import com.example.engapp.R
 import com.example.engapp.database.AppDatabase
+import com.example.engapp.database.DataWorks
 import java.io.File
 import java.util.*
 
@@ -28,7 +29,6 @@ import java.util.*
 class AddFileFragment : Fragment() {
     private lateinit var myFragment: View
     private val db: AppDatabase? = App.instance!!.database!!
-    private val idAdd = db!!.userDao()!!.getUserData()!!.addFile
     private lateinit var listRecycler: RecyclerView
 
     override fun onCreateView(
@@ -36,17 +36,19 @@ class AddFileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         myFragment = inflater.inflate(R.layout.fragment_add_file, container, false)
-
+        println("Bundle IS : " + arguments?.getParcelable("Work") )
         listRecycler = myFragment.findViewById(R.id.addFileRecycler)
         val layoutManager = LinearLayoutManager(context)
         listRecycler.layoutManager = layoutManager
-        val adapter = FileAdapter(getFiles(), idAdd!!)
+        val pathSection = arguments!!.getInt("Folder")
+        val worksAdded = arguments!!.getParcelable<DataWorks>("Work")!!
+        val adapter = FileAdapter(getFiles(pathSection), pathSection,  worksAdded)
         listRecycler.adapter = adapter
 
         return myFragment
     }
 
-    private fun getFiles(): List<String?>? {
+    private fun getFiles(idAdd: Int): List<String?>? {
         var dir = "/storage/emulated/0/"
         when(idAdd){
             0-> {dir += "audioAppEng/"}

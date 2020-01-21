@@ -13,7 +13,6 @@ import androidx.navigation.Navigation
 import com.example.engapp.App
 import com.example.engapp.ListId
 import com.example.engapp.R
-import com.example.engapp.addfile.AddFileFragment
 import com.example.engapp.database.*
 
 
@@ -34,6 +33,7 @@ class AddWorkFragment : Fragment(), View.OnClickListener {
     private val accountDao: DataAccountDao = db!!.accountDao()!!
     //С помощью данного интерфейса добавляем работу в базу данных
     private val worksDao: DataWorksDao = db!!.worksDao()!!
+    private val work  = DataWorks()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,31 +55,24 @@ class AddWorkFragment : Fragment(), View.OnClickListener {
                     R.id.nav_host_fragment
                 )
             }!!
-        val work  = DataWorks()
         when(v!!.id){
             //Нажимая данную кнопку, мы заставляем пользователя дать аудио/картинку
             R.id.addAudioPath-> {
-                val audio = userDao.getUserData()
-                audio?.addFile = 0
-                userDao.update(audio)
-                val fragment = AddFileFragment()
                 val bundle = Bundle()
                 bundle.putInt("Folder", 0)
+                bundle.putParcelable("Work", work)
                 //Изменяем состояние бд
-                navController.navigate(R.id.addFileFragment)
+                navController.navigate(R.id.addFileFragment, bundle)
             }
             /*Нажимая данную кнопку, мы сохраняем значения в переменные и вставляем в объект
             который позже заполняем до конца и вставляем в базу данных
              */
             R.id.addImagePath-> {
-                val image = userDao.getUserData()
-                image?.addFile = 1
-                userDao.update(image)
-                val fragment = AddFileFragment()
                 val bundle = Bundle()
                 bundle.putInt("Folder", 1)
+                bundle.putParcelable("Work", work)
                 //изменяем состояние бд
-                navController.navigate(R.id.addFileFragment)
+                navController.navigate(R.id.addFileFragment, bundle)
             }
             R.id.nextAdd-> {
                 if (notEmpty()){
@@ -113,10 +106,10 @@ class AddWorkFragment : Fragment(), View.OnClickListener {
 
 
     private fun notEmpty(): Boolean {
-        return title.text.toString() != "" && title.text.length > 10 &&
-                contentDesc.text.toString() != "" && contentDesc.text.length > 30
-                && contentEn.text.toString() != "" && contentEn.text.length > 50
-                && contentRu.text.toString() != "" && contentEn.text.length > 50
+        return title.text.toString() != "" && title.text.length > 5 &&
+                contentDesc.text.toString() != "" && contentDesc.text.length > 10
+                && contentEn.text.toString() != "" && contentEn.text.length > 30
+                && contentRu.text.toString() != "" && contentEn.text.length > 30
     }
 
     private fun init(){

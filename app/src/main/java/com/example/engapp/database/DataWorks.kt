@@ -1,5 +1,7 @@
 package com.example.engapp.database
 
+import android.os.Parcel
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -15,7 +17,7 @@ import androidx.room.PrimaryKey
 10.id автора работы
  */
 @Entity
-class DataWorks {
+class DataWorks() : Parcelable {
     @PrimaryKey(autoGenerate = true)
     var id: Int? = null
     var title: String? = null
@@ -26,4 +28,34 @@ class DataWorks {
     var pathImage: String? = null
     var pathAudio: String? = null
     var idAuthor: Int? = null
+
+    constructor(parcel: Parcel) : this() {
+        id = parcel.readValue(Int::class.java.classLoader) as? Int
+        title = parcel.readString()
+        contentDesc = parcel.readString()
+        contentRu = parcel.readString()
+        contentEn = parcel.readString()
+        rating = parcel.readValue(Int::class.java.classLoader) as? Int
+        pathImage = parcel.readString()
+        pathAudio = parcel.readString()
+        idAuthor = parcel.readValue(Int::class.java.classLoader) as? Int
+    }
+
+    override fun writeToParcel(dest: Parcel?, flags: Int) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<DataWorks> {
+        override fun createFromParcel(parcel: Parcel): DataWorks {
+            return DataWorks(parcel)
+        }
+
+        override fun newArray(size: Int): Array<DataWorks?> {
+            return arrayOfNulls(size)
+        }
+    }
 }
