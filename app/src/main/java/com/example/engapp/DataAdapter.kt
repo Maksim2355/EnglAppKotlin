@@ -3,6 +3,7 @@ package com.example.engapp
 import android.app.Activity
 import android.content.Context
 import android.net.Uri
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -169,7 +170,9 @@ class DataAdapter(private val idRecycler: Int, listWorks: List<ItemList?>?) :
                     worksAdd.openWorks = workId
                     userDao.update(worksAdd)
                     println(userDao.getUserData()!!.openWorks)
-                    navController.navigate(R.id.elementWorksFragment)
+                    val bundle = Bundle()
+                    bundle.putInt("workId", workId)
+                    navController.navigate(R.id.elementWorksFragment, bundle)
 
                 }
             }

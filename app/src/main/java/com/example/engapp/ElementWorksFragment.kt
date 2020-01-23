@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.LinearLayout
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -23,11 +24,11 @@ class ElementWorksFragment : Fragment() {
     private lateinit var title: TextView
     private lateinit var contentEn: TextView
     private lateinit var contentRu: TextView
-    private lateinit var audioEng: ImageButton
-    private lateinit var pauseBut: ImageButton
-    private lateinit var resetBut: ImageButton
+    private var audioEng: ImageButton? = null
+    private var pauseBut: ImageButton? = null
+    private var resetBut: ImageButton? = null
     private var mPlayer: MediaPlayer? = null
-    private lateinit var progressContol: SeekBar
+    private  var progressContol: SeekBar? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,13 +48,17 @@ class ElementWorksFragment : Fragment() {
         title = myFragment.findViewById(R.id.titleAdd)
         contentEn = myFragment.findViewById(R.id.contentEn)
         contentRu = myFragment.findViewById(R.id.contentRu)
-        audioEng = myFragment.findViewById(R.id.audioEng)
-        pauseBut = myFragment.findViewById(R.id.pauseBut)
-        resetBut = myFragment.findViewById(R.id.resetBut)
+
         if (thisWorks?.pathAudio != null) {
             val uriAudio = Uri.parse("file:///storage/emulated/0" +
                     thisWorks.pathAudio)
             mPlayer = MediaPlayer.create(context, uriAudio)
+            audioEng = myFragment.findViewById(R.id.audioEng)
+            pauseBut = myFragment.findViewById(R.id.pauseBut)
+            resetBut = myFragment.findViewById(R.id.resetBut)
+        }else {
+            val menuPlayer = myFragment.findViewById<LinearLayout>(R.id.menuPlayer)
+            menuPlayer.visibility = View.GONE
         }
         title.text = thisWorks!!.title
         contentEn.text = thisWorks.contentRu
@@ -64,8 +69,8 @@ class ElementWorksFragment : Fragment() {
 
     private fun doPause(view: View?) {
         mPlayer!!.pause()
-        pauseBut.isEnabled = false
-        audioEng.isEnabled = true
+        pauseBut!!.isEnabled = false
+        audioEng!!.isEnabled = true
     }
 
 

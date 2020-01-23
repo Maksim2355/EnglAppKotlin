@@ -8,96 +8,135 @@
     android:orientation="vertical"
     android:layout_margin="10dp">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:orientation="horizontal">
-
-        <ImageButton
-            android:id="@+id/audioEng"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@null"
-            android:padding="10dp"
-            android:src="@drawable/ic_record_voice_over_black_24dp" />
-
-        <ImageButton
-            android:id="@+id/pauseBut"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@null"
-            android:padding="10dp"
-
-            android:src="@drawable/pause_24dp" />
-
-        <ImageButton
-            android:id="@+id/resetBut"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@null"
-            android:padding="10dp"
-            android:src="@drawable/replay_48dp" />
-    </LinearLayout>
-
-    <SeekBar
-        android:id="@+id/progressControl"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"/>
-
     <TextView
         android:id="@+id/titleAdd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:textColor="#000000"
-        android:textSize="30sp" />
+        android:textSize="26sp" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="#7b7b7b"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp" />
-    <ScrollView
-        android:id="@+id/worksElem"
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#7b7b7b"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp" />
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="50dp"
+        android:orientation="vertical"
+        android:layout_marginBottom="44dp"
         >
 
-        <LinearLayout
+        <ScrollView
+            android:id="@+id/worksElem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:layout_above="@+id/menuPlayer"
+            >
 
-            <TextView
-                android:id="@+id/contentEn"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textColor="#ff8c00"
-                android:textSize="16sp" />
+                android:orientation="horizontal">
 
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:background="#FF7538"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="4dp" />
+                <TextView
+                    android:id="@+id/contentEn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="#ff8c00"
+                    android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/contentRu"
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:background="#FF7538" />
+
+                <TextView
+                    android:id="@+id/contentRu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="#2196f3"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/menuPlayer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/border_radius"
+
+            android:orientation="vertical">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textColor="#2196f3"
-                android:textSize="16sp" />
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/imageButton3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:src="@drawable/fast_rewind" />
+
+                <ImageButton
+                    android:id="@+id/audioEng"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@null"
+                    android:src="@drawable/ic_record_voice_over_black_24dp" />
+
+                <ImageButton
+                    android:id="@+id/pauseBut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:src="@drawable/pause_24dp" />
+
+                <ImageButton
+                    android:id="@+id/resetBut"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:src="@drawable/replay_48dp" />
+
+                <ImageButton
+                    android:id="@+id/fastForward"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:src="@drawable/fast_forward_24dp" />
+            </LinearLayout>
+            <SeekBar
+                android:id="@+id/progressControl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
-    </ScrollView>
+
+
+</RelativeLayout>
+
 
 </LinearLayout>
