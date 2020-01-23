@@ -30,7 +30,6 @@ class WorksFragment : Fragment() {
         activity!!.title = "All Works"
         val myFragment: View =
             inflater.inflate(R.layout.fragment_works, container, false)
-
             listRecycler = myFragment.findViewById(R.id.allWokrsRecycler)
             val layoutManager = LinearLayoutManager(context)
             listRecycler.layoutManager = layoutManager

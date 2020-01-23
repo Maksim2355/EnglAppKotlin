@@ -1,7 +1,7 @@
 package com.example.engapp
 
 
-class ListId(var data: String) {
+class ListId(private var data: String) {
     private var listMu = mutableListOf<Int>()
     init {
         //Убираем [ ]

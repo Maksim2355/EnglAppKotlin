@@ -30,6 +30,7 @@ class AddProfileFragment : Fragment(), View.OnClickListener {
     private lateinit var passwordInput: EditText
     //Кнопка, которая добавляет аккаунт в базу данных
     private lateinit var regBut: Button
+    private lateinit var retBut: Button
     //Фрагмент и контроллер к нему
     private lateinit var myFragment: View
     private lateinit var navController: NavController
@@ -81,7 +82,10 @@ class AddProfileFragment : Fragment(), View.OnClickListener {
                     )
                     toast.show()
                 }
-            }else -> {navController.popBackStack()}
+            }
+            R.id.returnEsc-> {
+                navController.popBackStack()
+            }
         }
     }
     //Объявляем все переменные и присваем обработчик
@@ -91,13 +95,15 @@ class AddProfileFragment : Fragment(), View.OnClickListener {
         passwordInput = myFragment.findViewById(R.id.passwordReg)
         regBut = myFragment.findViewById(R.id.regbutton)
         regBut.setOnClickListener(this)
+        retBut = myFragment.findViewById(R.id.returnEsc)
+        retBut.setOnClickListener(this)
     }
 
     //Проверяем, пустое ли поле для ввода
     private fun emptyIn(): Boolean{
         return (loginInput.text.toString() != "" && loginInput.text.length > 4 &&
-                emailInput.text.toString()!= "" && emailInput.text.length > 8
-                && passwordInput.text.toString()!= "" && passwordInput.text.length > 6)
+                emailInput.text.toString()!= "" && emailInput.text.length > 4
+                && passwordInput.text.toString()!= "" && passwordInput.text.length > 4)
     }
     //Проверяем, есть ли в базе данных логин, который вводит пользователь
     private fun profileInDb(acDao: DataAccountDao, ac:DataAccount) : Boolean{
