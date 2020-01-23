@@ -1,5 +1,6 @@
 package com.example.engapp
 
+import android.R.attr.button
 import android.app.Activity
 import android.content.Context
 import android.net.Uri
@@ -8,13 +9,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.engapp.database.AppDatabase
 import com.example.engapp.database.ItemList
+
 
 //Тут еще должны быть ебаные обработчики
 //Передаем из фрагмента в адаптер Recycler
@@ -62,7 +66,7 @@ class DataAdapter(private val idRecycler: Int, listWorks: List<ItemList?>?) :
         private var titleView: TextView = view.findViewById<View>(R.id.titleWorks) as TextView
         private var contentDescView: TextView =
             view.findViewById<View>(R.id.contentDescWorks) as TextView
-        private var delAddButton: Button = view.findViewById(R.id.butDelAdd) as Button
+        private var delAddButton: ImageButton = view.findViewById(R.id.butDelAdd) as ImageButton
         private val db: AppDatabase? = App.instance!!.database!!
         private val accountDao = db!!.accountDao()!!
         private val userDao = db!!.userDao()!!
@@ -77,10 +81,11 @@ class DataAdapter(private val idRecycler: Int, listWorks: List<ItemList?>?) :
 
         fun bind(itemWorks: ItemList) {
             if (itemWorks.pathImage == null) {
-                imageView.setImageResource(R.drawable.photo_ots)
+                val params: ViewGroup.LayoutParams = imageView.layoutParams
+                params.width = WRAP_CONTENT // или в пикселях
+
+                imageView.layoutParams = params
             } else {
-                println("file:///storage/emulated/0" +
-                        itemWorks.pathImage)
                 val uriTest = Uri.parse("file:///storage/emulated/0" +
                         itemWorks.pathImage)
                 imageView.setImageURI(uriTest)

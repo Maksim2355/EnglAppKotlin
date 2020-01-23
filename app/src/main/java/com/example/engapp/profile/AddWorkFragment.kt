@@ -106,10 +106,9 @@ class AddWorkFragment : Fragment(), View.OnClickListener {
 
 
     private fun notEmpty(): Boolean {
-        return title.text.toString() != "" && title.text.length > 5 &&
-                contentDesc.text.toString() != "" && contentDesc.text.length > 10
-                && contentEn.text.toString() != "" && contentEn.text.length > 30
-                && contentRu.text.toString() != "" && contentEn.text.length > 30
+        return title.text.toString() != "" && title.text.length > 5
+            && contentEn.text.toString() != "" && contentEn.text.length > 30
+            && contentRu.text.toString() != "" && contentEn.text.length > 30
     }
 
     private fun init(){
