@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:textColor="#000000"
-        android:textSize="26sp" />
+        android:textSize="28sp" />
 
         <View
             android:layout_width="match_parent"
@@ -85,7 +85,7 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/imageButton3"
+                    android:id="@+id/rewindFastBut"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@null"
@@ -100,7 +100,7 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
                     android:background="@null"
-                    android:src="@drawable/ic_record_voice_over_black_24dp" />
+                    android:src="@drawable/play_48dp" />
 
                 <ImageButton
                     android:id="@+id/pauseBut"
@@ -109,7 +109,7 @@
                     android:background="@null"
                     android:layout_marginLeft="8dp"
                     android:layout_marginRight="8dp"
-                    android:src="@drawable/pause_24dp" />
+                    android:src="@drawable/pause_active_48dp" />
 
                 <ImageButton
                     android:id="@+id/resetBut"
@@ -121,7 +121,7 @@
                     android:src="@drawable/replay_48dp" />
 
                 <ImageButton
-                    android:id="@+id/fastForward"
+                    android:id="@+id/forwardFastBut"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@null"
