@@ -53,9 +53,6 @@ class DataAdapter(private val idRecycler: Int, listWorks: List<ItemList?>?) :
             holder.bind(listWoks!![position]!!)
 
     }
-
-
-
     class ViewHolder internal constructor(view: View,
                                           private val idRecycler: Int,
                                           private var listWorks: List<ItemList?>?,
@@ -80,10 +77,11 @@ class DataAdapter(private val idRecycler: Int, listWorks: List<ItemList?>?) :
         }
 
         fun bind(itemWorks: ItemList) {
+            //Проверяем, имеется ли автарка
+
             if (itemWorks.pathImage == null) {
                 val params: ViewGroup.LayoutParams = imageView.layoutParams
                 params.width = WRAP_CONTENT // или в пикселях
-
                 imageView.layoutParams = params
             } else {
                 val uriTest = Uri.parse("file:///storage/emulated/0" +

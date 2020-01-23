@@ -154,7 +154,7 @@ class ElementWorksFragment : Fragment(), View.OnClickListener, MediaPlayer.OnCom
         val currentPosition: Int = mPlayer!!.currentPosition
         val duration: Int = mPlayer!!.duration
         // 5 seconds.
-        val SUBTRACT_TIME = 5000
+        val SUBTRACT_TIME = 3000
         if (currentPosition - SUBTRACT_TIME > 0) {
             mPlayer!!.seekTo(currentPosition - SUBTRACT_TIME)
         }
@@ -164,7 +164,7 @@ class ElementWorksFragment : Fragment(), View.OnClickListener, MediaPlayer.OnCom
         val currentPosition: Int = mPlayer!!.currentPosition
         val duration: Int = mPlayer!!.duration
         // 5 seconds.
-        val ADD_TIME = 5000
+        val ADD_TIME = 3000
         if (currentPosition + ADD_TIME < duration) {
             mPlayer!!.seekTo(currentPosition + ADD_TIME)
         }
