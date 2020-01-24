@@ -2,6 +2,7 @@ package com.example.engapp.profile
 
 
 import android.media.Image
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -73,6 +74,11 @@ class UserFragment : Fragment(), View.OnClickListener {
                 userDao.update(active)
                 navController!!.navigate(R.id.profileFragment)
             }
+            R.id.iconProfile -> {
+                val bundle = Bundle()
+                bundle.putInt("Folder", 2)
+                navController!!.navigate(R.id.addFileFragment, bundle)
+            }
         }
 
     }
@@ -90,7 +96,11 @@ class UserFragment : Fragment(), View.OnClickListener {
         desc.text = activeAccount.accountDesc
         if(activeAccount.pathAvatar == null){
             avatar.setImageResource(R.drawable.avatar_not)
+        }else{
+            val uri = Uri.parse("file:///storage/emulated/0" + activeAccount.pathAvatar)
+            avatar.setImageURI(uri)
         }
+        avatar.setOnClickListener(this)
 
     }
 

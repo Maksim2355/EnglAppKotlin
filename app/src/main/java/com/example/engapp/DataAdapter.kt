@@ -1,6 +1,5 @@
 package com.example.engapp
 
-import android.R.attr.button
 import android.app.Activity
 import android.content.Context
 import android.net.Uri
@@ -9,13 +8,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.ViewGroup
-import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
+import com.example.engapp.UI.WorksFragment
 import com.example.engapp.database.AppDatabase
 import com.example.engapp.database.ItemList
 
@@ -30,11 +28,11 @@ import com.example.engapp.database.ItemList
 
 class DataAdapter(private val idRecycler: Int, listWorks: List<ItemList?>?) :
     RecyclerView.Adapter<DataAdapter.ViewHolder>() {
-
     //Получаем экземпляры
     //Из этого листа вытягиваем id с помощью позиции
     private val listWoks = listWorks
     private var size =  listWorks!!.size
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val context = parent.context
@@ -80,9 +78,7 @@ class DataAdapter(private val idRecycler: Int, listWorks: List<ItemList?>?) :
             //Проверяем, имеется ли автарка
 
             if (itemWorks.pathImage == null) {
-                val params: ViewGroup.LayoutParams = imageView.layoutParams
-                params.width = WRAP_CONTENT // или в пикселях
-                imageView.layoutParams = params
+                imageView.visibility = GONE
             } else {
                 val uriTest = Uri.parse("file:///storage/emulated/0" +
                         itemWorks.pathImage)
@@ -95,10 +91,9 @@ class DataAdapter(private val idRecycler: Int, listWorks: List<ItemList?>?) :
                         val favoriteListId =
                             ListId(accountDao.getById(userId)!!.idFavorites)
                         if (favoriteListId.elemInList(idWork)) {
-                            delAddButton.setBackgroundResource(R.drawable.del_add_favorite)
-                        } else {
-                            delAddButton.setBackgroundResource(R.drawable.add_in_favorite)
-                        }
+                            delAddButton.setBackgroundResource(R.drawable.del_add_favorite) }
+                        else {
+                            delAddButton.setBackgroundResource(R.drawable.add_in_favorite) }
                     }else{
                         delAddButton.visibility = GONE
                     }
@@ -168,15 +163,9 @@ class DataAdapter(private val idRecycler: Int, listWorks: List<ItemList?>?) :
                     }
                 }
                 else -> {
-                    println(workId)
-                    val worksAdd = userDao.getUserData()!!
-                    worksAdd.openWorks = workId
-                    userDao.update(worksAdd)
-                    println(userDao.getUserData()!!.openWorks)
                     val bundle = Bundle()
                     bundle.putInt("workId", workId)
                     navController.navigate(R.id.elementWorksFragment, bundle)
-
                 }
             }
         }

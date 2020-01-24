@@ -9,17 +9,22 @@ import android.widget.TextView
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
+import com.example.engapp.App
 import com.example.engapp.R
+import com.example.engapp.database.AppDatabase
+import com.example.engapp.database.DataAccountDao
 import com.example.engapp.database.DataWorks
+import com.example.engapp.database.UserDataDao
 
 
 /*
 FILE_SECTION:
     0-Делаем список для аудио
     1-Делаем список для фото
+    2-Делаем список для автарок
  */
 class FileAdapter(private val listFile: List<String?>?, private val FILE_SECTION: Int,
-                  private val workAdded: DataWorks):
+                  private val workAdded: DataWorks?):
     RecyclerView.Adapter<FileAdapter.ViewHolder>(){
     private lateinit var navController: NavController
 
@@ -45,7 +50,7 @@ class FileAdapter(private val listFile: List<String?>?, private val FILE_SECTION
                                           private val FILE_SECTION: Int,
                                           private val listFile: List<String?>?,
                                           private val navController: NavController,
-                                          private val workAdded: DataWorks):
+                                          private val workAdded: DataWorks?):
         RecyclerView.ViewHolder(view), View.OnClickListener {
 
         private val nameFile = view.findViewById<TextView>(R.id.file)
@@ -61,13 +66,20 @@ class FileAdapter(private val listFile: List<String?>?, private val FILE_SECTION
             //Добавляем файл в бд в качестве работы
             when(FILE_SECTION){
                 0->{
-                    workAdded.pathAudio = "/audioAppEng/" + listFile!![position]!!
-                    println(workAdded.pathAudio)
+                    workAdded!!.pathAudio = "/audioAppEng/" + listFile!![position]!!
                     navController.popBackStack()
                 }
                 1->{
-                    workAdded.pathImage = "/imageAppEng/" + listFile!![position]!!
-                    println(workAdded.pathImage)
+                    workAdded!!.pathImage = "/imageAppEng/" + listFile!![position]!!
+                    navController.popBackStack()
+                }
+                2 -> {
+                    val db: AppDatabase? = App.instance!!.database!!
+                    val userDao: UserDataDao = db!!.userDao()!!
+                    val accountDao: DataAccountDao = db.accountDao()!!
+                    val acRed = accountDao.getById(userDao.getUserData()!!.userId!!)
+                    acRed!!.pathAvatar = "/avatarsAppEng/" + listFile!![position]
+                    accountDao.update(acRed)
                     navController.popBackStack()
                 }
             }

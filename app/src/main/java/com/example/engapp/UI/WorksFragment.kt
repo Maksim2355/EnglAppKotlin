@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.engapp.App
 import com.example.engapp.DataAdapter
 import com.example.engapp.R
+import com.example.engapp.UpdateAdapter
 import com.example.engapp.database.AppDatabase
 import com.example.engapp.database.ItemList
 
@@ -30,14 +31,14 @@ class WorksFragment : Fragment() {
         activity!!.title = "All Works"
         val myFragment: View =
             inflater.inflate(R.layout.fragment_works, container, false)
-            listRecycler = myFragment.findViewById(R.id.allWokrsRecycler)
-            val layoutManager = LinearLayoutManager(context)
-            listRecycler.layoutManager = layoutManager
-            val adapter = DataAdapter(0, listWoks)
-            listRecycler.adapter = adapter
-
+        listRecycler = myFragment.findViewById(R.id.allWokrsRecycler)
+        val layoutManager = LinearLayoutManager(context)
+        listRecycler.layoutManager = layoutManager
+        val adapter = DataAdapter(0, listWoks)
+        listRecycler.adapter = adapter
         return myFragment
     }
+
 
 
 }

@@ -35,12 +35,17 @@ class AddFileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         myFragment = inflater.inflate(R.layout.fragment_add_file, container, false)
-        println("Bundle IS : " + arguments?.getParcelable("Work") )
         listRecycler = myFragment.findViewById(R.id.addFileRecycler)
         val layoutManager = LinearLayoutManager(context)
         listRecycler.layoutManager = layoutManager
         val pathSection = arguments!!.getInt("Folder")
-        val worksAdded = arguments!!.getParcelable<DataWorks>("Work")!!
+        val worksAdded: DataWorks?
+        worksAdded = if (pathSection != 2){
+            arguments!!.getParcelable("Work")!!
+        }else {
+            null
+        }
+
         val adapter = FileAdapter(getFiles(pathSection), pathSection,  worksAdded)
         listRecycler.adapter = adapter
 
@@ -51,8 +56,11 @@ class AddFileFragment : Fragment() {
         var dir = "/storage/emulated/0/"
         when(idAdd){
             0-> {dir += "audioAppEng/"}
-            1-> {dir += "imageAppEng/"} }
+            1-> {dir += "imageAppEng/"}
+            2-> {dir += "avatarsAppEng/"}
+        }
         val f = File(dir)
+        println(f.list().toList())
         return f.list().toList()
     }
 
