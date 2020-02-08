@@ -1,7 +1,6 @@
-package com.example.engapp.UI
+package com.example.engapp
 
 
-import android.app.ActionBar
 import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,16 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
-import android.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.engapp.App
-import com.example.engapp.DataAdapter
-import com.example.engapp.ListId
-import com.example.engapp.R
-import com.example.engapp.database.*
 
 
 /**

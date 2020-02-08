@@ -6,7 +6,7 @@
     app:startDestination="@id/worksFragment">
     <fragment
         android:id="@+id/favoriteFragment"
-        android:name="com.example.engapp.UI.FavoriteFragment"
+        android:name="com.example.engapp.FavoriteFragment"
         android:label="fragment_favorite"
         tools:layout="@layout/fragment_favorite" >
         <action
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/worksFragment"
-        android:name="com.example.engapp.UI.WorksFragment"
+        android:name="com.example.engapp.WorksFragment"
         android:label="fragment_works"
         tools:layout="@layout/fragment_works" >
         <action
@@ -23,51 +23,8 @@
             app:destination="@id/elementWorksFragment" />
     </fragment>
     <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.example.engapp.profile.ProfileFragment"
-        android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" >
-        <action
-            android:id="@+id/action_profileFragment_to_addProfileFragment"
-            app:destination="@id/addProfileFragment" />
-        <action
-            android:id="@+id/action_profileFragment_to_userFragment"
-            app:destination="@id/userFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/addProfileFragment"
-        android:name="com.example.engapp.profile.AddProfileFragment"
-        android:label="fragment_add_profile"
-        tools:layout="@layout/fragment_add_profile" />
-    <fragment
         android:id="@+id/elementWorksFragment"
         android:name="com.example.engapp.ElementWorksFragment"
         android:label="fragment_element_works"
         tools:layout="@layout/fragment_element_works" />
-    <fragment
-        android:id="@+id/userFragment"
-        android:name="com.example.engapp.profile.UserFragment"
-        android:label="fragment_user"
-        tools:layout="@layout/fragment_user" >
-        <action
-            android:id="@+id/action_userFragment_to_addWorkFragment"
-            app:destination="@id/addWorkFragment" />
-        <action
-            android:id="@+id/action_userFragment_to_elementWorksFragment"
-            app:destination="@id/elementWorksFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/addWorkFragment"
-        android:name="com.example.engapp.profile.AddWorkFragment"
-        android:label="fragment_add_work"
-        tools:layout="@layout/fragment_add_work" >
-        <action
-            android:id="@+id/action_addWorkFragment_to_addFileFragment"
-            app:destination="@id/addFileFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/addFileFragment"
-        android:name="com.example.engapp.addfile.AddFileFragment"
-        android:label="fragment_add_file"
-        tools:layout="@layout/fragment_add_file" />
 </navigation>

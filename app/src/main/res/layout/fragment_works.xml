@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".UI.WorksFragment"
+    tools:context=".WorksFragment"
     android:layout_marginBottom="@android:dimen/app_icon_size">
 
     <androidx.recyclerview.widget.RecyclerView

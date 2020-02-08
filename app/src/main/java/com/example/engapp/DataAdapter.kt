@@ -13,7 +13,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
-import com.example.engapp.UI.WorksFragment
 import com.example.engapp.database.AppDatabase
 import com.example.engapp.database.ItemList
 
@@ -31,7 +30,7 @@ class DataAdapter(private val idRecycler: Int, listWorks: List<ItemList?>?) :
     //Получаем экземпляры
     //Из этого листа вытягиваем id с помощью позиции
     private val listWoks = listWorks
-    private var size =  listWorks!!.size
+    private var size: Int =  listWorks!!.size
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

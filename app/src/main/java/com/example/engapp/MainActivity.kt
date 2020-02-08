@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.example.engapp.database.AppDatabase
+
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
@@ -16,8 +16,6 @@ class MainActivity : AppCompatActivity() {
         val bottomNavigation : BottomNavigationView = findViewById(R.id.nav_view)
         val navController: NavController =
             Navigation.findNavController(this, R.id.nav_host_fragment)
-        val db: AppDatabase = App.instance!!.database!!
-        val userDao = db.userDao()
         bottomNavigation.selectedItemId = R.id.works
 
         bottomNavigation.setOnNavigationItemSelectedListener { item ->
@@ -30,16 +28,8 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.worksFragment)
                     true
                 }
-                R.id.profile ->{
-                    if(userDao?.getUserData()?.userId != null) {
-                        navController.navigate(R.id.userFragment)
-                    }else{
-                        navController.navigate(R.id.profileFragment)
-                    }
-                    true
-                }
-                else -> false
-            }
+
+
         }
     }
 

@@ -51,7 +51,6 @@ class ElementWorksFragment : Fragment(), View.OnClickListener, MediaPlayer.OnCom
             menuPlayer.visibility = View.GONE
         }
 
-
         // Inflate the layout for this fragment
         return myFragment
     }
@@ -59,7 +58,6 @@ class ElementWorksFragment : Fragment(), View.OnClickListener, MediaPlayer.OnCom
     private fun init(thisWorks: DataWorks){
         title = myFragment.findViewById(R.id.titleAdd)
         contentEn = myFragment.findViewById(R.id.contentEn)
-        contentRu = myFragment.findViewById(R.id.contentRu)
         title.text = thisWorks.title
         contentEn.text = thisWorks.contentRu
         contentRu.text = thisWorks.contentEn
