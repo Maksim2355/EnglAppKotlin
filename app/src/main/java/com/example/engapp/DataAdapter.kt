@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.engapp.UI.WorksFragment
 import com.example.engapp.database.AppDatabase
 import com.example.engapp.database.ItemList
+import java.io.FileNotFoundException
 
 
 //Тут еще должны быть ебаные обработчики
@@ -57,10 +58,10 @@ class DataAdapter(private val idRecycler: Int, listWorks: List<ItemList?>?) :
                                           private val context: Context) :
         RecyclerView.ViewHolder(view), View.OnClickListener {
 
-        private var imageView: ImageView = view.findViewById<View>(R.id.imageWorks) as ImageView
-        private var titleView: TextView = view.findViewById<View>(R.id.titleWorks) as TextView
+        private var imageView = view.findViewById<View>(R.id.imageWorks) as ImageView
+        private var titleView = view.findViewById<View>(R.id.titleWorks) as TextView
         private var contentDescView: TextView =
-            view.findViewById<View>(R.id.contentDescWorks) as TextView
+                     view.findViewById<View>(R.id.contentDescWorks) as TextView
         private var delAddButton: ImageButton = view.findViewById(R.id.butDelAdd) as ImageButton
         private val db: AppDatabase? = App.instance!!.database!!
         private val accountDao = db!!.accountDao()!!
@@ -71,7 +72,6 @@ class DataAdapter(private val idRecycler: Int, listWorks: List<ItemList?>?) :
         init {
             delAddButton.setOnClickListener(this)
             view.setOnClickListener(this)
-            view.setBackgroundResource(R.drawable.border_radius)
         }
 
         fun bind(itemWorks: ItemList) {
@@ -82,8 +82,14 @@ class DataAdapter(private val idRecycler: Int, listWorks: List<ItemList?>?) :
             } else {
                 val uriTest = Uri.parse("file:///storage/emulated/0" +
                         itemWorks.pathImage)
-                imageView.setImageURI(uriTest)
+                try {
+                    imageView.setImageURI(uriTest)
+                }catch (e: FileNotFoundException){
+
+                }
             }
+            titleView.text = itemWorks.title
+            contentDescView.text = itemWorks.contentDesc
             when(idRecycler){
                 0-> {
                     val idWork = itemWorks.id
@@ -103,8 +109,7 @@ class DataAdapter(private val idRecycler: Int, listWorks: List<ItemList?>?) :
                      }
                 2-> {delAddButton.setBackgroundResource(R.drawable.ic_clear_black_24dp) }
             }
-            titleView.text = itemWorks.title
-            contentDescView.text = itemWorks.contentDesc
+
         }
 
         override fun onClick(v: View?) {

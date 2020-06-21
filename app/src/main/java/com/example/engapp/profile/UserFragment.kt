@@ -4,6 +4,7 @@ package com.example.engapp.profile
 import android.media.Image
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -97,7 +98,7 @@ class UserFragment : Fragment(), View.OnClickListener {
         if(activeAccount.pathAvatar == null){
             avatar.setImageResource(R.drawable.avatar_not)
         }else{
-            val uri = Uri.parse("file:///storage/emulated/0" + activeAccount.pathAvatar)
+            val uri = Uri.parse(Environment.getExternalStorageState() + activeAccount.pathAvatar)
             avatar.setImageURI(uri)
         }
         avatar.setOnClickListener(this)

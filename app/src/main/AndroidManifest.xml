@@ -4,9 +4,9 @@
     package="com.example.engapp">
     <dist:module dist:instant="true" />
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
-
         android:allowBackup="true"
         android:icon="@drawable/icon_app"
         android:label="@string/app_name"
